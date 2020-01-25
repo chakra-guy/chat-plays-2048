@@ -1,17 +1,20 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import useKeydownListener from "../_hooks/useKeydownListener"
-import { moveUp } from "./actions"
+import useKeydown from "../_hooks/useKeydown"
+import { makeMove } from "./actions"
+import DIRECTIONS from "../_common/directionConstants"
 
 export default function Grid() {
   const dispatch = useDispatch()
-  const { grid, score } = useSelector(state => state.grid)
+  const { grid, score } = useSelector(state => state.game)
 
-  useKeydownListener("ArrowUp", () => {
-    console.log("up")
-    dispatch(moveUp())
-  })
+  const move = dir => dispatch(makeMove(dir))
+
+  useKeydown("ArrowUp", () => move(DIRECTIONS.UP))
+  useKeydown("ArrowDown", () => move(DIRECTIONS.DOWN))
+  useKeydown("ArrowRight", () => move(DIRECTIONS.RIGHT))
+  useKeydown("ArrowLeft", () => move(DIRECTIONS.LEFT))
 
   return (
     <div>
@@ -20,18 +23,30 @@ export default function Grid() {
       <div
         style={{
           display: "flex",
-          height: "120px",
-          width: "120px",
+          flexDirection: "column",
+          height: "480px",
+          width: "480px",
           margin: "auto",
         }}
       >
-        {grid.map((row, i) => (
-          <div style={{ flex: "1" }}>
-            {row.map(cell => (
-              <div>{cell}</div>
-            ))}
-          </div>
-        ))}
+        {grid.length &&
+          grid.map((row, i) => (
+            <div style={{ display: "inline-block" }}>
+              {row.map(cell => (
+                <div
+                  style={{
+                    display: "inline-block",
+                    height: "72px",
+                    width: "72px",
+                    margin: "4px",
+                    background: "aliceblue",
+                  }}
+                >
+                  {cell}
+                </div>
+              ))}
+            </div>
+          ))}
       </div>
     </div>
   )

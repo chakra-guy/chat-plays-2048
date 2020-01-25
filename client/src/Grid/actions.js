@@ -1,11 +1,12 @@
-export const SET_GRID = "[Grid] SET_GRID"
-export const MOVE_UP = "[Grid] MOVE_UP"
+export const SET_GAME_STATE = "[Grid] SET_GAME_STATE"
+export const MAKE_MOVE = "[Grid] MAKE_MOVE"
 
-export const setGrid = payload => ({
-  type: SET_GRID,
+export const setGameState = payload => ({
+  type: SET_GAME_STATE,
   payload,
 })
 
-export const moveUp = () => ({
-  type: MOVE_UP,
+export const makeMove = payload => ({
+  type: MAKE_MOVE,
+  payload,
 })

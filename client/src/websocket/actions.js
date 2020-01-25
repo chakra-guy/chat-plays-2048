@@ -1,7 +1,7 @@
-export const SETUP_WEBSOCKET = "[WS middleware] SETUP_WEBSOCKET"
-export const JOIN_CHANNEL = "[WS middleware] JOIN_CHANNEL"
-export const JOIN_CHANNEL_SUCCESS = "[WS middleware] JOIN_CHANNEL_SUCCESS"
-export const JOIN_CHANNEL_ERROR = "[WS middleware] JOIN_CHANNEL_ERROR"
+export const SETUP_WEBSOCKET = "[Websocket] SETUP_WEBSOCKET"
+export const JOIN_CHANNEL = "[Websocket] JOIN_CHANNEL"
+export const JOIN_CHANNEL_SUCCESS = "[Websocket] JOIN_CHANNEL_SUCCESS"
+export const JOIN_CHANNEL_ERROR = "[Websocket] JOIN_CHANNEL_ERROR"
 
 export const setupWebsocket = payload => ({
   type: SETUP_WEBSOCKET,

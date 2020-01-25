@@ -1,4 +1,4 @@
-import { SET_GRID } from "./actions"
+import { SET_GAME_STATE } from "./actions"
 
 const initialState = {
   grid: [],
@@ -7,7 +7,7 @@ const initialState = {
 
 export default function gridReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case SET_GRID:
+    case SET_GAME_STATE:
       return {
         ...state,
         grid: payload.grid,

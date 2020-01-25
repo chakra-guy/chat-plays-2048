@@ -6,7 +6,7 @@ import websocketMiddleware from "./websocket/redux-middleware"
 
 export default function setupStore() {
   const rootReducer = combineReducers({
-    grid: gridReducer,
+    game: gridReducer, // FIXME rename
   })
 
   const store = createStore(

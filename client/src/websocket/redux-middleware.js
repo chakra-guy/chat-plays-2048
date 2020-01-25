@@ -1,5 +1,5 @@
 import { Socket } from "phoenix"
-import { MOVE_UP } from "../Grid/actions"
+import { setGameState, MAKE_MOVE } from "../Grid/actions"
 import {
   SETUP_WEBSOCKET,
   JOIN_CHANNEL,
@@ -34,13 +34,14 @@ export default function websocketMiddleware({ dispatch }) {
       case JOIN_CHANNEL:
         channel = handleChannelJoin(socket, payload.topic, dispatch)
 
-        channel.on("moved", console.log)
-        channel.on("moved", console.log)
+        channel.on("game_state", res => dispatch(setGameState(res)))
+        channel.on("move", console.log)
+        channel.on("moved", res => dispatch(setGameState(res)))
         break
 
-      case MOVE_UP:
+      case MAKE_MOVE:
         channel
-          .push("move:up")
+          .push(`move:${payload}`)
           .receive("ok", msg => console.log("created message", msg))
           .receive("error", reasons => console.log("create failed", reasons))
           .receive("timeout", () => console.log("Networking issue..."))
