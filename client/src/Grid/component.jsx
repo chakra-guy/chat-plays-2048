@@ -2,14 +2,16 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import useKeydown from "../_hooks/useKeydown"
-import { makeMove } from "./actions"
-import DIRECTIONS from "../_common/directionConstants"
+import DIRECTIONS from "../_common/directionsConstants"
+import { makeMove, restartGame } from "./actions"
 
 export default function Grid() {
   const dispatch = useDispatch()
-  const { grid, score } = useSelector(state => state.game)
+  const { grid, score, isGameWon, isGameOver } = useSelector(
+    state => state.game,
+  )
 
-  const move = dir => dispatch(makeMove(dir))
+  const move = dir => !isGameWon && !isGameOver && dispatch(makeMove(dir))
 
   useKeydown("ArrowUp", () => move(DIRECTIONS.UP))
   useKeydown("ArrowDown", () => move(DIRECTIONS.DOWN))
@@ -18,6 +20,11 @@ export default function Grid() {
 
   return (
     <div>
+      <button type="button" onClick={() => dispatch(restartGame())}>
+        Restart Game
+      </button>
+      {isGameWon && `GAME WON! :)`}
+      {isGameOver && `game lost :(`}
       grid {score}
       <br />
       <div
@@ -31,9 +38,12 @@ export default function Grid() {
       >
         {grid.length &&
           grid.map((row, i) => (
-            <div style={{ display: "inline-block" }}>
-              {row.map(cell => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div key={i}>
+              {row.map((cell, j) => (
                 <div
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={`${i}-${j}`}
                   style={{
                     display: "inline-block",
                     height: "72px",

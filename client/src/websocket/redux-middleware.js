@@ -1,5 +1,12 @@
 import { Socket } from "phoenix"
-import { setGameState, MAKE_MOVE } from "../Grid/actions"
+import {
+  MAKE_MOVE,
+  RESTART_GAME,
+  setGameState,
+  updateGameState,
+  setGameOver,
+  setGameWon,
+} from "../Grid/actions"
 import {
   SETUP_WEBSOCKET,
   JOIN_CHANNEL,
@@ -7,7 +14,7 @@ import {
   joinChannelError,
 } from "./actions"
 
-function handleChannelJoin(socket, topic, dispatch) {
+function joinChannel(socket, topic, dispatch) {
   const channel = socket.channel(topic, {})
 
   channel
@@ -32,19 +39,20 @@ export default function websocketMiddleware({ dispatch }) {
         break
 
       case JOIN_CHANNEL:
-        channel = handleChannelJoin(socket, payload.topic, dispatch)
+        channel = joinChannel(socket, payload.topic, dispatch)
 
         channel.on("game_state", res => dispatch(setGameState(res)))
-        channel.on("move", console.log)
-        channel.on("moved", res => dispatch(setGameState(res)))
+        channel.on("game_won", res => dispatch(setGameWon(res)))
+        channel.on("moved", res => dispatch(updateGameState(res)))
+        channel.on("game_over", res => dispatch(setGameOver(res)))
         break
 
       case MAKE_MOVE:
-        channel
-          .push(`move:${payload}`)
-          .receive("ok", msg => console.log("created message", msg))
-          .receive("error", reasons => console.log("create failed", reasons))
-          .receive("timeout", () => console.log("Networking issue..."))
+        channel.push(`move:${payload}`)
+        break
+
+      case RESTART_GAME:
+        channel.push("restart_game")
         break
 
       default:
