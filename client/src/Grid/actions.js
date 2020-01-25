@@ -1,5 +1,11 @@
-export const FETCH_TEST = "[test] FETCH_TEST"
+export const SET_GRID = "[Grid] SET_GRID"
+export const MOVE_UP = "[Grid] MOVE_UP"
 
-export const fetchTest = () => ({
-  type: FETCH_TEST,
+export const setGrid = payload => ({
+  type: SET_GRID,
+  payload,
+})
+
+export const moveUp = () => ({
+  type: MOVE_UP,
 })

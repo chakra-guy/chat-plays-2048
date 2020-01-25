@@ -1,13 +1,18 @@
-import { FETCH_TEST } from "./actions"
+import { SET_GRID } from "./actions"
 
 const initialState = {
-  count: 0,
+  grid: [],
+  score: 0,
 }
 
 export default function gridReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case FETCH_TEST:
-      return { ...state, count: state.count + 1 }
+    case SET_GRID:
+      return {
+        ...state,
+        grid: payload.grid,
+        score: payload.score,
+      }
 
     default:
       return state

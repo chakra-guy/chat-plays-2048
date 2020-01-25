@@ -2,34 +2,20 @@ import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import useKeydownListener from "../_hooks/useKeydownListener"
-import { fetchTest } from "./actions"
+import { moveUp } from "./actions"
 
 export default function Grid() {
   const dispatch = useDispatch()
-  const { count } = useSelector(state => state.grid)
-
-  console.log(" : Grid -> count", count)
+  const { grid, score } = useSelector(state => state.grid)
 
   useKeydownListener("ArrowUp", () => {
     console.log("up")
-    dispatch(fetchTest())
+    dispatch(moveUp())
   })
-
-  const stuff = {
-    grid: [
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-      [0, 4, 2, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0],
-    ],
-    score: 0,
-  }
 
   return (
     <div>
-      grid
+      grid {score}
       <br />
       <div
         style={{
@@ -39,7 +25,7 @@ export default function Grid() {
           margin: "auto",
         }}
       >
-        {stuff.grid.map((row, i) => (
+        {grid.map((row, i) => (
           <div style={{ flex: "1" }}>
             {row.map(cell => (
               <div>{cell}</div>
