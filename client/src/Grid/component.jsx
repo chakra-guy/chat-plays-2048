@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux"
 
 import useKeydown from "../_hooks/useKeydown"
 import DIRECTIONS from "../_common/directionsConstants"
-import { makeMove, restartGame } from "./actions"
+import { makeMove, restartGame, changeGameMode } from "./actions"
 
 export default function Grid() {
   const dispatch = useDispatch()
-  const { grid, score, isGameWon, isGameOver } = useSelector(
+  const { grid, score, isGameWon, isGameOver, activeUsers } = useSelector(
     state => state.game,
   )
 
@@ -20,6 +20,15 @@ export default function Grid() {
 
   return (
     <div>
+      <button
+        type="button"
+        onClick={() => dispatch(changeGameMode("democracy"))}
+      >
+        Change to Democracy Mode
+      </button>
+      <button type="button" onClick={() => dispatch(changeGameMode("anarchy"))}>
+        Change to Anarchy Mode
+      </button>
       <button type="button" onClick={() => dispatch(restartGame())}>
         Restart Game
       </button>
@@ -27,6 +36,13 @@ export default function Grid() {
       {isGameOver && `game lost :(`}
       grid {score}
       <br />
+      <div>
+        <ul>
+          {activeUsers.map(user => (
+            <li>{user.username}</li>
+          ))}
+        </ul>
+      </div>
       <div
         style={{
           display: "flex",

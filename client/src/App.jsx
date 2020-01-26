@@ -9,7 +9,15 @@ export default function App() {
 
   useEffect(() => {
     dispatch(setupWebsocket())
-    dispatch(joinChannel({ topic: "game:current" })) // FIXME
+    dispatch(
+      joinChannel({
+        topic: "game:current",
+        username: `tomi-${Math.random()}`,
+      }),
+    )
+
+    // FIXME order
+    // TODO use localStorage for usernames
   }, [dispatch])
 
   return (

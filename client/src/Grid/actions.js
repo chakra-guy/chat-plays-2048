@@ -4,6 +4,8 @@ export const SET_GAME_OVER = "[Grid] SET_GAME_OVER"
 export const SET_GAME_WON = "[Grid] SET_GAME_WON"
 export const MAKE_MOVE = "[Grid] MAKE_MOVE"
 export const RESTART_GAME = "[Grid] RESTART_GAME"
+export const CHANGE_GAME_MODE = "[Grid] CHANGE_GAME_MODE"
+export const UPDATE_ACTIVE_USERS = "[Grid] UPDATE_ACTIVE_USERS"
 
 export const setGameState = payload => ({
   type: SET_GAME_STATE,
@@ -32,4 +34,14 @@ export const makeMove = payload => ({
 
 export const restartGame = () => ({
   type: RESTART_GAME,
+})
+
+export const changeGameMode = payload => ({
+  type: CHANGE_GAME_MODE,
+  payload,
+})
+
+export const updateActiveUsers = payload => ({
+  type: UPDATE_ACTIVE_USERS,
+  payload,
 })
