@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import Grid from "./Grid/component"
 import { setupWebsocket, joinChannel } from "./websocket/actions"
 
-export default function App() {
+export default function App({ username = "tamas" }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function App() {
     dispatch(
       joinChannel({
         topic: "game:current",
-        username: `tomi-${Math.random()}`,
+        username,
       }),
     )
 
