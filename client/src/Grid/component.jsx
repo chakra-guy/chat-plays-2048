@@ -1,9 +1,19 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
+import styled from "styled-components"
 
 import useKeydown from "../_hooks/useKeydown"
 import DIRECTIONS from "../_common/directionsConstants"
 import { makeMove, restartGame, changeGameMode } from "./actions"
+
+const Tile = styled.div`
+  color: grey;
+  display: inline-block;
+  height: 72px;
+  width: 72px;
+  margin: 4px;
+  background: aquamarine;
+`
 
 export default function Grid() {
   const dispatch = useDispatch()
@@ -57,19 +67,8 @@ export default function Grid() {
             // eslint-disable-next-line react/no-array-index-key
             <div key={i}>
               {row.map((cell, j) => (
-                <div
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={`${i}-${j}`}
-                  style={{
-                    display: "inline-block",
-                    height: "72px",
-                    width: "72px",
-                    margin: "4px",
-                    background: "aliceblue",
-                  }}
-                >
-                  {cell}
-                </div>
+                // eslint-disable-next-line react/no-array-index-key
+                <Tile key={`${i}-${j}`}>{cell}</Tile>
               ))}
             </div>
           ))}
