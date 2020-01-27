@@ -1,3 +1,11 @@
+import {
+  INIT_GAME,
+  GAME_MOVED,
+  GAME_VOTING,
+  GAME_RESTARTED,
+  GAME_MODE_CHANGED,
+} from "./actions"
+
 const emptyGrid = Array(6)
   .fill(0)
   .map(() => Array(6).fill(0))
@@ -13,11 +21,11 @@ const initialState = {
 
 export default function gameReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case "INIT_GAME":
-    case "GAME_MOVED":
-    case "GAME_VOTING":
-    case "GAME_RESTARTED":
-    case "GAME_MODE_CHANGED":
+    case INIT_GAME:
+    case GAME_MOVED:
+    case GAME_VOTING:
+    case GAME_RESTARTED:
+    case GAME_MODE_CHANGED:
       return {
         ...state,
         grid: payload.game.grid,

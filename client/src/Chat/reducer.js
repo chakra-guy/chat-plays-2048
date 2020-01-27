@@ -1,3 +1,5 @@
+import { UPDATE_ONLINE_USERS, UPDATE_MESSAGE_LIST } from "./actions"
+
 const initialState = {
   onlineUsers: [],
   messages: [],
@@ -5,13 +7,13 @@ const initialState = {
 
 export default function chatReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case "UPDATE_ONLINE_USERS":
+    case UPDATE_ONLINE_USERS:
       return {
         ...state,
         onlineUsers: payload,
       }
 
-    case "UPDATE_MESSAGE_LIST":
+    case UPDATE_MESSAGE_LIST:
       return {
         ...state,
         messages: [...state.messages, payload],

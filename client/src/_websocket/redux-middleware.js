@@ -6,6 +6,23 @@ import {
   joinChannelSuccess,
   joinChannelError,
 } from "./actions"
+import {
+  updateMessageList,
+  updateOnlineUsers,
+  SEND_NEW_MESSAGE,
+} from "../Chat/actions"
+import {
+  initializeGame,
+  gameMoved,
+  gameVoting,
+  gameRestarted,
+  gameModeChanged,
+  MAKE_MOVE,
+  RESTART_GAME,
+  CHANGE_GAME_MODE,
+} from "../Game/actions"
+
+const WS_URL = process.env.REACT_APP_WS_URL
 
 function joinChannel(socket, topic, dispatch) {
   const channel = socket.channel(topic)
@@ -20,86 +37,72 @@ function joinChannel(socket, topic, dispatch) {
 
 export default function websocketMiddleware({ dispatch, getState }) {
   let socket = null
-  const channels = {}
   let presences = {}
+  const channels = {}
 
   return next => async action => {
     const { payload, type } = action
 
     switch (type) {
-      case SETUP_WEBSOCKET: {
-        socket = new Socket("ws://localhost:4000/socket", {
-          params: { username: payload },
-        }) // FIXME use .env
+      case SETUP_WEBSOCKET:
+        socket = new Socket(WS_URL, { params: { username: payload } })
         socket.connect()
         break
-      }
 
-      case JOIN_CHANNEL: {
+      case JOIN_CHANNEL:
         channels[payload.name] = joinChannel(socket, payload.topic, dispatch)
 
         if (payload.name === "game") {
           channels.game.on("game:init", response => {
-            console.log("init", response)
-            dispatch({ type: "INIT_GAME", payload: response })
-          }) // FIXME
+            dispatch(initializeGame(response))
+          })
           channels.game.on("game:moved", response => {
-            console.log("moved", response)
-            dispatch({ type: "GAME_MOVED", payload: response })
-          }) // FIXME
+            dispatch(gameMoved(response))
+          })
           channels.game.on("game:voting", response => {
-            console.log("voting", response)
-            dispatch({ type: "GAME_VOTING", payload: response })
-          }) // FIXME
+            dispatch(gameVoting(response))
+          })
           channels.game.on("game:restarted", response => {
-            console.log("restarted", response)
-            dispatch({ type: "GAME_RESTARTED", payload: response })
-          }) // FIXME
+            dispatch(gameRestarted(response))
+          })
           channels.game.on("game:game_mode_changed", response => {
-            console.log("modechanged", response)
-            dispatch({ type: "GAME_MODE_CHANGED", payload: response })
-          }) // FIXME
+            dispatch(gameModeChanged(response))
+          })
         }
 
         if (payload.name === "chat") {
           channels.chat.on("chat:new_msg", res => {
-            console.log("chat:new_msg", res)
-            dispatch({ type: "UPDATE_MESSAGE_LIST", payload: res })
+            dispatch(updateMessageList(res))
           })
           channels.chat.on("presence_state", response => {
             presences = Presence.syncState(presences, response)
             const onlineUsers = Presence.list(presences).map(p => p.metas[0])
-            dispatch({ type: "UPDATE_ONLINE_USERS", payload: onlineUsers })
+            dispatch(updateOnlineUsers(onlineUsers))
           })
           channels.chat.on("presence_diff", res => {
             presences = Presence.syncDiff(presences, res)
             const onlineUsers = Presence.list(presences).map(p => p.metas[0])
-            dispatch({ type: "UPDATE_ONLINE_USERS", payload: onlineUsers })
+            dispatch(updateOnlineUsers(onlineUsers))
           })
         }
 
         break
-      }
 
-      case "MAKE_MOVE": {
+      case MAKE_MOVE:
         channels.game.push(`move:${payload}`)
         break
-      }
 
-      case "RESTART_GAME": {
-        channels.game.push("restart_game", { game_mode: payload }) // FIXME
+      case RESTART_GAME:
+        channels.game.push("restart_game", { game_mode: payload })
         break
-      }
 
-      case "CHANGE_GAME_MODE": {
-        channels.game.push("change_game_mode", { game_mode: payload }) // FIXME
+      case CHANGE_GAME_MODE:
+        channels.game.push("change_game_mode", { game_mode: payload })
         break
-      }
 
-      case "SEND_NEW_MESSAGE": {
-        channels.chat.push("chat:new_msg", { body: payload }) // FIXME
+      case SEND_NEW_MESSAGE:
+        channels.chat.push("chat:new_msg", { body: payload })
         break
-      }
 
       default:
         break

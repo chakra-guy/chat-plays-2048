@@ -8,6 +8,7 @@ import useKeydown from "../_hooks/useKeydown"
 import Panel from "./components/Panel"
 import WinLoseModal from "./components/Modal"
 import Grid from "./components/Grid"
+import { changeGameMode, makeMove, restartGame } from "./actions"
 
 export default function Game({ channel }) {
   const dispatch = useDispatch()
@@ -15,14 +16,11 @@ export default function Game({ channel }) {
     state => state.game,
   )
 
+  const move = dir => stage === "running" && dispatch(makeMove(dir))
   const flipGameMode = mode => (mode !== "democracy" ? "democracy" : "anarchy")
-  const move = dir =>
-    stage === "running" && dispatch({ type: "MAKE_MOVE", payload: dir })
 
-  const restartGame = () =>
-    dispatch({ type: "RESTART_GAME", payload: gameMode })
-  const switchGameMode = () =>
-    dispatch({ type: "CHANGE_GAME_MODE", payload: flipGameMode(gameMode) })
+  const restart = () => dispatch(restartGame(gameMode))
+  const switchGameMode = () => dispatch(changeGameMode(flipGameMode(gameMode)))
 
   useChannel(channel)
 
@@ -38,10 +36,10 @@ export default function Game({ channel }) {
         gameMode={gameMode}
         voteStartedAt={voteStartedAt}
         votes={votes}
-        restartGame={restartGame}
+        restartGame={restart}
         switchGameMode={switchGameMode}
       />
-      <WinLoseModal stage={stage} restartGame={restartGame} />
+      <WinLoseModal stage={stage} restartGame={restart} />
       <Grid grid={grid} />
     </>
   )

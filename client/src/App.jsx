@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 
-import { setupWebsocket } from "./websocket/actions"
+import { setupWebsocket } from "./_websocket/actions"
 import Layout from "./Layout/Layout"
 import Chat from "./Chat/Chat"
 import Game from "./Game/Game"

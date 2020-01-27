@@ -6,6 +6,7 @@ import useChannel from "../_hooks/useChannel"
 import UsersOnline from "./components/UsersOnline"
 import MessageList from "./components/MessageList"
 import ChatInput from "./components/ChatInput"
+import { sendNewMessage } from "./actions"
 
 export default function Chat({ channel }) {
   const [inputValue, setInputValue] = useState("")
@@ -16,11 +17,11 @@ export default function Chat({ channel }) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    const trimed = inputValue.trim()
-    if (trimed) {
-      dispatch({ type: "SEND_NEW_MESSAGE", payload: trimed })
-    }
+    const trimmed = inputValue.trim()
     setInputValue("")
+    if (trimmed) {
+      dispatch(sendNewMessage(trimmed))
+    }
   }
 
   return (

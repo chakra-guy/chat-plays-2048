@@ -1,8 +1,8 @@
 import { combineReducers, createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 
-import websocketMiddleware from "./websocket/redux-middleware"
-import websocketReducer from "./websocket/reducer"
+import websocketMiddleware from "./_websocket/redux-middleware"
+import websocketReducer from "./_websocket/reducer"
 import chatReducer from "./Chat/reducer"
 import gameReducer from "./Game/reducer"
 
