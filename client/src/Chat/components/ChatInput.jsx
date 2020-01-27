@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 export default function ChatInput({ value, setValue, handleSubmit }) {
   return (
@@ -13,4 +14,10 @@ export default function ChatInput({ value, setValue, handleSubmit }) {
       </form>
     </div>
   )
+}
+
+ChatInput.propTypes = {
+  value: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }

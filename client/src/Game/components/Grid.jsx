@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from "react"
+import PropTypes from "prop-types"
 
 import { GridContainer, Tile } from "../styles"
 
@@ -16,4 +17,8 @@ export default function Grid({ grid }) {
         ))}
     </GridContainer>
   )
+}
+
+Grid.propTypes = {
+  grid: PropTypes.arrayOf(Array).isRequired,
 }

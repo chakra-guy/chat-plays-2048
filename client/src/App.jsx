@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
+import PropTypes from "prop-types"
 import { useDispatch } from "react-redux"
 
-import { setupWebsocket, joinChannel } from "./websocket/actions"
+import { setupWebsocket } from "./websocket/actions"
 import Layout from "./Layout/Layout"
 import Chat from "./Chat/Chat"
 import Game from "./Game/Game"
@@ -11,7 +12,7 @@ export default function App({ username }) {
 
   useEffect(() => {
     dispatch(setupWebsocket(username))
-  }, [dispatch])
+  }, [dispatch, username])
 
   return (
     <Layout
@@ -19,4 +20,8 @@ export default function App({ username }) {
       sidebar={<Chat channel={{ name: "chat", topic: "chat:current" }} />}
     />
   )
+}
+
+App.propTypes = {
+  username: PropTypes.string.isRequired,
 }

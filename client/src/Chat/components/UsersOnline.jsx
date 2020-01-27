@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 export default function UsersOnline({ users }) {
   return (
@@ -18,4 +19,13 @@ export default function UsersOnline({ users }) {
       </ul>
     </div>
   )
+}
+
+UsersOnline.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      username: PropTypes.string,
+      online_at: PropTypes.string,
+    }),
+  ).isRequired,
 }
