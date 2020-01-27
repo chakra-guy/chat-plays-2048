@@ -8,15 +8,20 @@ import Panel from "./components/Panel"
 import WinLoseModal from "./components/Modal"
 import Grid from "./components/Grid"
 
-import { makeMove } from "../__Grid/actions" // FIXME
-
 export default function Game({ channel }) {
   const dispatch = useDispatch()
   const { grid, stage, score, gameMode, voteStartedAt, votes } = useSelector(
     state => state.game,
   )
 
-  const move = dir => stage === "running" && dispatch(makeMove(dir))
+  const flipGameMode = mode => (mode !== "democracy" ? "democracy" : "anarchy")
+  const move = dir =>
+    stage === "running" && dispatch({ type: "MAKE_MOVE", payload: dir })
+
+  const restartGame = () =>
+    dispatch({ type: "RESTART_GAME", payload: gameMode })
+  const switchGameMode = () =>
+    dispatch({ type: "CHANGE_GAME_MODE", payload: flipGameMode(gameMode) })
 
   useChannel(channel)
 
@@ -27,20 +32,15 @@ export default function Game({ channel }) {
 
   return (
     <>
-      <button type="button" onClick={() => dispatch({ type: "RESTART_GAME" })}>
-        Restart Game
-      </button>
-
       <Panel
         score={score}
         gameMode={gameMode}
         voteStartedAt={voteStartedAt}
         votes={votes}
+        restartGame={restartGame}
+        switchGameMode={switchGameMode}
       />
-      <WinLoseModal
-        stage={stage}
-        restartGame={() => dispatch({ type: "RESTART_GAME" })}
-      />
+      <WinLoseModal stage={stage} restartGame={restartGame} />
       <Grid grid={grid} />
     </>
   )

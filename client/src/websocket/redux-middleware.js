@@ -1,14 +1,5 @@
 import { Socket, Presence } from "phoenix"
-import {
-  MAKE_MOVE,
-  RESTART_GAME,
-  CHANGE_GAME_MODE,
-  setGameState,
-  updateGameState,
-  setGameOver,
-  setGameWon,
-  updateActiveUsers,
-} from "../__Grid/actions"
+
 import {
   SETUP_WEBSOCKET,
   JOIN_CHANNEL,
@@ -64,9 +55,10 @@ export default function websocketMiddleware({ dispatch, getState }) {
             console.log("restarted", response)
             dispatch({ type: "GAME_RESTARTED", payload: response })
           }) // FIXME
-          channels.game.on("game:game_mode_changed", r =>
-            console.log("modechanged", r),
-          ) // FIXME
+          channels.game.on("game:game_mode_changed", response => {
+            console.log("modechanged", response)
+            dispatch({ type: "GAME_MODE_CHANGED", payload: response })
+          }) // FIXME
         }
 
         if (payload.name === "chat") {
@@ -89,19 +81,17 @@ export default function websocketMiddleware({ dispatch, getState }) {
         break
       }
 
-      case MAKE_MOVE: {
+      case "MAKE_MOVE": {
         channels.game.push(`move:${payload}`)
         break
       }
 
       case "RESTART_GAME": {
-        const { currentGameMode } = getState().game
-        channels.game.push("restart_game", { game_mode: "anarchy" }) // FIXME
-        // channels.game.push("restart_game", { game_mode: currentGameMode }) // FIXME
+        channels.game.push("restart_game", { game_mode: payload }) // FIXME
         break
       }
 
-      case CHANGE_GAME_MODE: {
+      case "CHANGE_GAME_MODE": {
         channels.game.push("change_game_mode", { game_mode: payload }) // FIXME
         break
       }

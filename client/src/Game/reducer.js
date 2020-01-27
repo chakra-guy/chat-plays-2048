@@ -17,6 +17,7 @@ export default function gameReducer(state = initialState, { type, payload }) {
     case "GAME_MOVED":
     case "GAME_VOTING":
     case "GAME_RESTARTED":
+    case "GAME_MODE_CHANGED":
       return {
         ...state,
         grid: payload.game.grid,
