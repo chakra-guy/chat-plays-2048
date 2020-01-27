@@ -3,12 +3,16 @@ import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
 import DIRECTIONS from "../_common/directionsConstants"
+import GAME_MODE from "../_common/gameModeContants"
 import useChannel from "../_hooks/useChannel"
 import useKeydown from "../_hooks/useKeydown"
 import Panel from "./components/Panel"
 import WinLoseModal from "./components/Modal"
 import Grid from "./components/Grid"
 import { changeGameMode, makeMove, restartGame } from "./actions"
+
+const { UP, DOWN, RIGHT, LEFT } = DIRECTIONS
+const { DEMOCRACY, ANARCHY } = GAME_MODE
 
 export default function Game({ channel }) {
   const dispatch = useDispatch()
@@ -17,17 +21,17 @@ export default function Game({ channel }) {
   )
 
   const move = dir => stage === "running" && dispatch(makeMove(dir))
-  const flipGameMode = mode => (mode !== "democracy" ? "democracy" : "anarchy")
+  const flipGameMode = mode => (mode === DEMOCRACY ? ANARCHY : DEMOCRACY)
 
   const restart = () => dispatch(restartGame(gameMode))
   const switchGameMode = () => dispatch(changeGameMode(flipGameMode(gameMode)))
 
   useChannel(channel)
 
-  useKeydown("ArrowUp", () => move(DIRECTIONS.UP))
-  useKeydown("ArrowDown", () => move(DIRECTIONS.DOWN))
-  useKeydown("ArrowRight", () => move(DIRECTIONS.RIGHT))
-  useKeydown("ArrowLeft", () => move(DIRECTIONS.LEFT))
+  useKeydown("ArrowUp", () => move(UP))
+  useKeydown("ArrowDown", () => move(DOWN))
+  useKeydown("ArrowRight", () => move(RIGHT))
+  useKeydown("ArrowLeft", () => move(LEFT))
 
   return (
     <>

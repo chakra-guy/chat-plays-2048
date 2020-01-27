@@ -1,7 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import GAME_MODE from "../../_common/gameModeContants"
 import { PanelContainer } from "../styles"
+
+const { DEMOCRACY } = GAME_MODE
 
 export default function Panel(props) {
   const {
@@ -17,8 +20,7 @@ export default function Panel(props) {
     <PanelContainer>
       <div>score: {score}</div>
       <div>gameMode: {gameMode}</div>
-      {/* FIXME add constant for game modes */}
-      {gameMode === "democracy" && (
+      {gameMode === DEMOCRACY && (
         <>
           <div>voteStartedAt: {voteStartedAt}</div>
           <div>votes: {JSON.stringify(votes)}</div>
