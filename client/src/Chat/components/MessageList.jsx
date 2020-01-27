@@ -1,24 +1,31 @@
-import React from "react"
+import React, { useRef, useEffect } from "react"
 import PropTypes from "prop-types"
+import {
+  MessageListContainer,
+  Message,
+  MessageUser,
+  MessageCreatedAt,
+} from "../styles"
 
 export default function MessageList({ messages }) {
+  const listBottomRef = useRef(null)
+
+  useEffect(() => {
+    listBottomRef.current.scrollIntoView()
+  }, [messages])
+
   return (
-    <div
-      style={{
-        height: "400px",
-        border: "1px solid black",
-      }}
-    >
-      <ul>
-        {/* use moment.js for thime */}
-        {messages.map(message => (
-          <li key={message.created_at}>
-            {message.user} - {message.body} -
-            {new Date(message.created_at).toLocaleTimeString()}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <MessageListContainer>
+      {/* FIXME use moment.js for thime */}
+      {messages.map(message => (
+        <Message key={message.created_at}>
+          <MessageUser>{message.user}</MessageUser>
+          <MessageCreatedAt>{message.created_at}</MessageCreatedAt>
+          <div>{message.body}</div>
+        </Message>
+      ))}
+      <div ref={listBottomRef} />
+    </MessageListContainer>
   )
 }
 

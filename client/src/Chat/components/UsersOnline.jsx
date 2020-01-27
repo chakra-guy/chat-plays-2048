@@ -1,23 +1,19 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { UserContainer, OnlineUser, OnlineSince } from "../styles"
 
 export default function UsersOnline({ users }) {
   return (
-    <div
-      style={{
-        height: "120px",
-        border: "1px solid black",
-      }}
-    >
-      <ul>
-        {users.map(user => (
-          <li key={user.online_at}>
-            {/* use moment.js for thime */}
-            {user.username} -{new Date(user.online_at).toLocaleTimeString()}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <UserContainer>
+      Users Online
+      {users.map(user => (
+        <OnlineUser key={user.online_at}>
+          {/* FIXME use moment.js for thime */}
+          <div>{user.username}</div>
+          <OnlineSince>{user.online_at}</OnlineSince>
+        </OnlineUser>
+      ))}
+    </UserContainer>
   )
 }
 

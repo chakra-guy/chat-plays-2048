@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "chat_plays_2048",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -27,6 +27,7 @@
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
+    "@testing-library/react-hooks": "^3.2.1",
     "@testing-library/user-event": "^7.1.2",
     "phoenix": "^1.4.12",
     "prop-types": "^15.7.2",

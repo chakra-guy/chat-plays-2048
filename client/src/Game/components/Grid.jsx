@@ -1,8 +1,10 @@
+// Since the grid tile positions are always the same
+// eslint can be safely disabled here
 /* eslint-disable react/no-array-index-key */
 import React from "react"
 import PropTypes from "prop-types"
 
-import { GridContainer, Tile } from "../styles"
+import { GridContainer, Tile, TileInside } from "../styles"
 
 export default function Grid({ grid }) {
   return (
@@ -10,8 +12,10 @@ export default function Grid({ grid }) {
       {grid.length &&
         grid.map((row, i) => (
           <div key={i}>
-            {row.map((cell, j) => (
-              <Tile key={`${i}-${j}`}>{cell}</Tile>
+            {row.map((value, j) => (
+              <Tile key={`${i}-${j}`} value={value}>
+                <TileInside>{value}</TileInside>
+              </Tile>
             ))}
           </div>
         ))}

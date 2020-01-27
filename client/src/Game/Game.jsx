@@ -15,12 +15,20 @@ const { UP, DOWN, RIGHT, LEFT } = DIRECTIONS
 const { DEMOCRACY, ANARCHY } = GAME_MODE
 
 export default function Game({ channel }) {
+  const {
+    grid,
+    stage,
+    score,
+    gameMode,
+    voteStartedAt,
+    votes,
+    userVoted,
+  } = useSelector(state => state.game)
   const dispatch = useDispatch()
-  const { grid, stage, score, gameMode, voteStartedAt, votes } = useSelector(
-    state => state.game,
-  )
 
-  const move = dir => stage === "running" && dispatch(makeMove(dir))
+  const canUserMakeMove = !userVoted && stage === "running"
+
+  const move = dir => canUserMakeMove && dispatch(makeMove(dir))
   const flipGameMode = mode => (mode === DEMOCRACY ? ANARCHY : DEMOCRACY)
 
   const restart = () => dispatch(restartGame(gameMode))

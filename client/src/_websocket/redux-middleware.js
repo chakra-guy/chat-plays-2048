@@ -85,7 +85,6 @@ export default function websocketMiddleware({ dispatch, getState }) {
             dispatch(updateOnlineUsers(onlineUsers))
           })
         }
-
         break
 
       case MAKE_MOVE:
