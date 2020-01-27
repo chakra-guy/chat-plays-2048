@@ -3,12 +3,12 @@ import PropTypes from "prop-types"
 
 import { Container, Main, Header, Title, Sidebar } from "./styles"
 
-export default function Layout({ content, sidebar }) {
+export default function Layout({ title, content, sidebar }) {
   return (
     <Container>
       <Main>
         <Header>
-          <Title>Chat Plays 2048</Title>
+          <Title>{title}</Title>
         </Header>
         <div>{content}</div>
       </Main>
@@ -18,6 +18,7 @@ export default function Layout({ content, sidebar }) {
 }
 
 Layout.propTypes = {
+  title: PropTypes.string.isRequired,
   content: PropTypes.element.isRequired,
   sidebar: PropTypes.element.isRequired,
 }

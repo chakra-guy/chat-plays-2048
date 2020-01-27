@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
 import DIRECTIONS from "../_common/directionsConstants"
-import GAME_MODE from "../_common/gameModeContants"
+import GAME_MODE from "../_common/gameModeConstants"
 import useChannel from "../_hooks/useChannel"
 import useKeydown from "../_hooks/useKeydown"
 import Panel from "./components/Panel"

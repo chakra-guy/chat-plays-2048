@@ -7,6 +7,7 @@ import UsersOnline from "./components/UsersOnline"
 import MessageList from "./components/MessageList"
 import ChatInput from "./components/ChatInput"
 import { sendNewMessage } from "./actions"
+import { Container } from "./styles"
 
 export default function Chat({ channel }) {
   const [inputValue, setInputValue] = useState("")
@@ -25,14 +26,7 @@ export default function Chat({ channel }) {
   }
 
   return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "stretch",
-      }}
-    >
+    <Container>
       <UsersOnline users={onlineUsers} />
       <MessageList messages={messages} />
       <ChatInput
@@ -40,7 +34,7 @@ export default function Chat({ channel }) {
         setValue={setInputValue}
         handleSubmit={handleSubmit}
       />
-    </div>
+    </Container>
   )
 }
 

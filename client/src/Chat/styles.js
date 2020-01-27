@@ -1,5 +1,12 @@
 import styled from "styled-components"
 
+export const Container = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+`
+
 export const MessageListContainer = styled.div`
   flex: 1;
   background-color: #efefef;
@@ -53,4 +60,28 @@ export const OnlineSince = styled.div`
   opacity: 0.6;
   font-size: 12px;
   font-weight: normal;
+`
+
+export const ChatInputContainer = styled.div`
+  height: 50px;
+  padding: 12px;
+`
+
+export const Input = styled.input`
+  width: 220px;
+  border: none;
+  height: 28px;
+  padding: 6px;
+  font-size: 16px;
+  border-radius: 4px 0 0 4px;
+`
+export const SendButton = styled.button`
+  color: #ffffee;
+  width: 64px;
+  border: 0;
+  cursor: pointer;
+  height: 39px;
+  font-size: 16px;
+  background: #ff5432;
+  border-radius: 0 4px 4px 0;
 `

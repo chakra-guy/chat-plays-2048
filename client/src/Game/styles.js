@@ -9,9 +9,50 @@ export const PanelContainer = styled.div`
   margin: auto;
 `
 
+export const ButtonGroup = styled.div`
+  width: 100%;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+`
+
+export const Button = styled.div`
+  color: #776665;
+  width: 180px;
+  border: 2px solid #a09c9c;
+  margin: 12px 0;
+  padding: 12px;
+  font-size: 16px;
+  background: #e2e1e1;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+`
+
+export const PanelText = styled.div`
+  display: flex;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  text-transform: capitalize;
+  justify-content: space-between;
+`
+
+export const VotesText = styled.div`
+  opacity: 0.5;
+  font-size: 15px;
+  margin-top: 2px;
+`
+
 export const ModalContent = styled.div`
-  height: 160px;
-  width: 360px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 36px;
 `
 
 export const GridContainer = styled.div`

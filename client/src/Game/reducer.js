@@ -6,7 +6,7 @@ import {
   GAME_MODE_CHANGED,
   MAKE_MOVE,
 } from "./actions"
-import GAME_MODE from "../_common/gameModeContants"
+import GAME_MODE from "../_common/gameModeConstants"
 
 const { DEMOCRACY } = GAME_MODE
 

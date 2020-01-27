@@ -16,6 +16,7 @@ export default function App({ username }) {
 
   return (
     <Layout
+      title="Chat Plays 2048"
       content={<Game channel={{ name: "game", topic: "game:current" }} />}
       sidebar={<Chat channel={{ name: "chat", topic: "chat:current" }} />}
     />
