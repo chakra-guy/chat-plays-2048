@@ -55,7 +55,7 @@ const STYLE_FOR_VALUE = {
     color: "#ffe",
     bg: "#ec5",
   },
-  1028: {
+  1024: {
     size: "24px",
     color: "#fff",
     bg: "#ec3",
