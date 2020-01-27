@@ -13,6 +13,9 @@ export default function setupRandomUsername() {
 
   if (!username) {
     username = generateName()
+      .replace(" ", "_")
+      .toLowerCase()
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(username))
   }
 

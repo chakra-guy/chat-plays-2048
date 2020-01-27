@@ -1,28 +1,22 @@
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
 
-import Grid from "./Grid/component"
 import { setupWebsocket, joinChannel } from "./websocket/actions"
+import Layout from "./Layout/Layout"
+import Chat from "./Chat/Chat"
+import Game from "./Game/Game"
 
-export default function App({ username = "tamas" }) {
+export default function App({ username }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setupWebsocket())
-    dispatch(
-      joinChannel({
-        topic: "game:current",
-        username,
-      }),
-    )
-
-    // FIXME order
-    // TODO use localStorage for usernames
+    dispatch(setupWebsocket(username))
   }, [dispatch])
 
   return (
-    <div>
-      <Grid />
-    </div>
+    <Layout
+      content={<Game channel={{ name: "game", topic: "game:current" }} />}
+      sidebar={<Chat channel={{ name: "chat", topic: "chat:current" }} />}
+    />
   )
 }

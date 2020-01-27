@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 
 import useKeydown from "../_hooks/useKeydown"
 import DIRECTIONS from "../_common/directionsConstants"
 import { makeMove, restartGame, changeGameMode } from "./actions"
+import { joinChannel } from "../websocket/actions"
 
 const Tile = styled.div`
   color: grey;
@@ -15,11 +16,20 @@ const Tile = styled.div`
   background: aquamarine;
 `
 
-export default function Grid() {
+export default function Grid({ channel }) {
   const dispatch = useDispatch()
+  const { isConnected } = useSelector(state => state.websocket)
+
   const { grid, score, isGameWon, isGameOver, activeUsers } = useSelector(
     state => state.game,
   )
+
+  useEffect(() => {
+    if (isConnected) {
+      console.log(" : Grid -> isConnected", isConnected)
+      dispatch(joinChannel(channel))
+    }
+  }, [dispatch, channel, isConnected])
 
   const move = dir => !isGameWon && !isGameOver && dispatch(makeMove(dir))
 
@@ -30,6 +40,17 @@ export default function Grid() {
 
   return (
     <div>
+      <button
+        type="button"
+        onClick={() =>
+          dispatch({
+            type: "SEND_NEW_MESSAGE",
+            payload: `message-${Math.random()}`,
+          })
+        }
+      >
+        send random message
+      </button>
       <button
         type="button"
         onClick={() => dispatch(changeGameMode("democracy"))}
@@ -49,7 +70,10 @@ export default function Grid() {
       <div>
         <ul>
           {activeUsers.map(user => (
-            <li>{user.username}</li>
+            <li>
+              {/* use moment.js for thime */}
+              {user.username} -{new Date(user.online_at).toLocaleTimeString()}
+            </li>
           ))}
         </ul>
       </div>
