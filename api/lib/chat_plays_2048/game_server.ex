@@ -139,7 +139,7 @@ defmodule ChatPlays2048.GameServer do
   end
 
   defp sanitize(%GameState{} = state) do
-    %GameState{game: {stage, grid_and_score}} = state
+    %{game: {stage, grid_and_score}} = state
 
     formatted_game = %{
       stage: stage,

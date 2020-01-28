@@ -15,15 +15,14 @@ defmodule ChatPlays2048Web.GameChannelTest do
     assert_push("game:init", %{game: _})
   end
 
+  @tag :half_done
   describe "move:<direction>" do
-    @tag :half_done
     test "when it's anarchy mode, then it broadcasts a new anarchy game state", %{socket: socket} do
       GameServer.restart(:anarchy)
       push(socket, "move:up")
       assert_broadcast("game:moved", %{game_mode: :anarchy})
     end
 
-    @tag :half_done
     test "when it's democracy mode, then it broadcasts a new democracy game state", %{
       socket: socket
     } do
