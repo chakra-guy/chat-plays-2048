@@ -35,7 +35,10 @@ defmodule ChatPlays2048.MixProject do
       {:phoenix, "~> 1.4.12"},
       {:phoenix_pubsub, "~> 1.1"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      # FIXME
+      # {:tty2048, github: "tamas-soos/tty2048", app: false}
+      {:tty2048, path: "/Users/soostamas/Documents/GitHub/tty2048", app: false}
     ]
   end
 end
