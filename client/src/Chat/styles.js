@@ -24,6 +24,7 @@ export const Message = styled.div`
 export const MessageUser = styled.div`
   font-size: 14px;
   font-weight: 700;
+  color: ${p => p.styles.backgroundColor};
 `
 
 export const MessageCreatedAt = styled.div`
@@ -56,6 +57,10 @@ export const OnlineUser = styled.div`
     left: 0;
   }
 `
+export const Username = styled.div`
+  color: ${p => p.styles.backgroundColor};
+`
+
 export const OnlineSince = styled.div`
   opacity: 0.6;
   font-size: 12px;

@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
+import moment from "moment"
 
 import GAME_MODE from "../../_common/gameModeConstants"
 import {
@@ -16,7 +17,7 @@ export default function Panel(props) {
   const {
     score,
     gameMode,
-    voteStartedAt,
+    votingEndsAt,
     votes,
     restartGame,
     switchGameMode,
@@ -41,7 +42,8 @@ export default function Panel(props) {
         <>
           <div>
             {`Remaining time to vote: `}
-            {voteStartedAt || "Not started yet"}
+            {/* TODO do a countdown instead of just displaying the end date lol */}
+            {votingEndsAt ? moment(votingEndsAt).format() : "Not started yet"}
           </div>
           <VotesText>
             {`${votes.up} UP ${votes.down} DOWN ${votes.right} RIGHT ${votes.left} LEFT`}
@@ -54,13 +56,13 @@ export default function Panel(props) {
 
 Panel.defaultProps = {
   gameMode: "",
-  voteStartedAt: "",
+  votingEndsAt: "",
 }
 
 Panel.propTypes = {
   score: PropTypes.number.isRequired,
   gameMode: PropTypes.string,
-  voteStartedAt: PropTypes.string,
+  votingEndsAt: PropTypes.string,
   votes: PropTypes.shape({
     up: PropTypes.number,
     down: PropTypes.number,

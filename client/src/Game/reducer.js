@@ -20,7 +20,7 @@ const initialState = {
   score: 0,
   stage: "running",
   gameMode: null,
-  voteStartedAt: null,
+  votingEndsAt: null,
   votes: {},
 }
 
@@ -37,7 +37,7 @@ export default function gameReducer(state = initialState, { type, payload }) {
         score: payload.game.score,
         stage: payload.game.stage,
         gameMode: payload.game_mode,
-        voteStartedAt: payload.vote_started_at,
+        votingEndsAt: payload.voting_ends_at,
         votes: payload.votes,
       }
 
@@ -48,7 +48,7 @@ export default function gameReducer(state = initialState, { type, payload }) {
         score: payload.game.score,
         stage: payload.game.stage,
         gameMode: payload.game_mode,
-        voteStartedAt: payload.vote_started_at,
+        votingEndsAt: payload.voting_ends_at,
         votes: payload.votes,
       }
 

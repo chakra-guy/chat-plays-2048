@@ -1,5 +1,8 @@
 import React, { useRef, useEffect } from "react"
 import PropTypes from "prop-types"
+import convertToStyles from "material-color-hash"
+import moment from "moment"
+
 import {
   MessageListContainer,
   Message,
@@ -16,11 +19,16 @@ export default function MessageList({ messages }) {
 
   return (
     <MessageListContainer>
-      {/* FIXME use moment.js for thime */}
       {messages.map(message => (
         <Message key={message.created_at}>
-          <MessageUser>{message.user}</MessageUser>
-          <MessageCreatedAt>{message.created_at}</MessageCreatedAt>
+          <MessageUser styles={convertToStyles(message.user)}>
+            {message.user}
+          </MessageUser>
+          <MessageCreatedAt>
+            {moment(message.created_at)
+              .startOf("minute")
+              .fromNow()}
+          </MessageCreatedAt>
           <div>{message.body}</div>
         </Message>
       ))}

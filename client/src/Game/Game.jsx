@@ -20,7 +20,7 @@ export default function Game({ channel }) {
     stage,
     score,
     gameMode,
-    voteStartedAt,
+    votingEndsAt,
     votes,
     userVoted,
   } = useSelector(state => state.game)
@@ -46,7 +46,7 @@ export default function Game({ channel }) {
       <Panel
         score={score}
         gameMode={gameMode}
-        voteStartedAt={voteStartedAt}
+        votingEndsAt={votingEndsAt}
         votes={votes}
         restartGame={restart}
         switchGameMode={switchGameMode}

@@ -1,6 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { UserContainer, OnlineUser, OnlineSince } from "../styles"
+import convertToStyles from "material-color-hash"
+import moment from "moment"
+
+import { UserContainer, OnlineUser, OnlineSince, Username } from "../styles"
 
 export default function UsersOnline({ users }) {
   return (
@@ -8,9 +11,14 @@ export default function UsersOnline({ users }) {
       Users Online
       {users.map(user => (
         <OnlineUser key={user.online_at}>
-          {/* FIXME use moment.js for thime */}
-          <div>{user.username}</div>
-          <OnlineSince>{user.online_at}</OnlineSince>
+          <Username styles={convertToStyles(user.username)}>
+            {user.username}
+          </Username>
+          <OnlineSince>
+            {moment(user.online_at)
+              .startOf("minute")
+              .fromNow()}
+          </OnlineSince>
         </OnlineUser>
       ))}
     </UserContainer>
