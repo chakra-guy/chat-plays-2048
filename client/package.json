@@ -41,6 +41,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "sillyname": "^0.1.0",
+    "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^5.0.0"
   },
   "devDependencies": {

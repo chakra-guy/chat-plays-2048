@@ -1,8 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import convertToStyles from "material-color-hash"
-import moment from "moment"
 
+import { formatTime } from "../../_common/utils"
 import { UserContainer, OnlineUser, OnlineSince, Username } from "../styles"
 
 export default function UsersOnline({ users }) {
@@ -14,11 +14,7 @@ export default function UsersOnline({ users }) {
           <Username styles={convertToStyles(user.username)}>
             {user.username}
           </Username>
-          <OnlineSince>
-            {moment(user.online_at)
-              .startOf("minute")
-              .fromNow()}
-          </OnlineSince>
+          <OnlineSince>{formatTime(user.online_at)}</OnlineSince>
         </OnlineUser>
       ))}
     </UserContainer>

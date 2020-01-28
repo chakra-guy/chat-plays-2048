@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
+import CHANNEL from "../_common/channelConstants"
 import useChannel from "../_hooks/useChannel"
 import UsersOnline from "./components/UsersOnline"
 import MessageList from "./components/MessageList"
@@ -9,12 +10,14 @@ import ChatInput from "./components/ChatInput"
 import { sendNewMessage } from "./actions"
 import { Container } from "./styles"
 
-export default function Chat({ channel }) {
+const { CHAT } = CHANNEL
+
+export default function Chat() {
   const [inputValue, setInputValue] = useState("")
   const dispatch = useDispatch()
   const { onlineUsers, messages } = useSelector(state => state.chat)
 
-  useChannel(channel)
+  useChannel(CHAT)
 
   const handleSubmit = e => {
     e.preventDefault()

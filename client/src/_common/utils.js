@@ -1,8 +1,9 @@
 import generateName from "sillyname"
+import moment from "moment"
 
-const STORAGE_KEY = "CP2048_USERNAME"
+const STORAGE_KEY = "ChatPlays2048_USERNAME"
 
-export default function setupRandomUsername() {
+export function setupRandomUsername() {
   let username
 
   try {
@@ -24,4 +25,10 @@ export default function setupRandomUsername() {
   }
 
   return username
+}
+
+export function formatTime(time) {
+  return moment(time)
+    .startOf("minute")
+    .fromNow()
 }

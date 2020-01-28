@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from "react"
 import PropTypes from "prop-types"
 import convertToStyles from "material-color-hash"
-import moment from "moment"
 
+import { formatTime } from "../../_common/utils"
 import {
   MessageListContainer,
   Message,
@@ -14,21 +14,19 @@ export default function MessageList({ messages }) {
   const listBottomRef = useRef(null)
 
   useEffect(() => {
-    listBottomRef.current.scrollIntoView()
+    if (listBottomRef.current) {
+      listBottomRef.current.scrollIntoView({ behavior: "smooth" })
+    }
   }, [messages])
 
   return (
     <MessageListContainer>
       {messages.map(message => (
-        <Message key={message.created_at}>
+        <Message key={message.online_at}>
           <MessageUser styles={convertToStyles(message.user)}>
             {message.user}
           </MessageUser>
-          <MessageCreatedAt>
-            {moment(message.created_at)
-              .startOf("minute")
-              .fromNow()}
-          </MessageCreatedAt>
+          <MessageCreatedAt>{formatTime(message.online_at)}</MessageCreatedAt>
           <div>{message.body}</div>
         </Message>
       ))}

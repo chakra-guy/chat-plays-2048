@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import DIRECTIONS from "../_common/directionsConstants"
 import GAME_MODE from "../_common/gameModeConstants"
+import CHANNEL from "../_common/channelConstants"
 import useChannel from "../_hooks/useChannel"
 import useKeydown from "../_hooks/useKeydown"
 import Panel from "./components/Panel"
@@ -13,8 +14,9 @@ import { changeGameMode, makeMove, restartGame } from "./actions"
 
 const { UP, DOWN, RIGHT, LEFT } = DIRECTIONS
 const { DEMOCRACY, ANARCHY } = GAME_MODE
+const { GAME } = CHANNEL
 
-export default function Game({ channel }) {
+export default function Game() {
   const {
     grid,
     stage,
@@ -34,7 +36,7 @@ export default function Game({ channel }) {
   const restart = () => dispatch(restartGame(gameMode))
   const switchGameMode = () => dispatch(changeGameMode(flipGameMode(gameMode)))
 
-  useChannel(channel)
+  useChannel(GAME)
 
   useKeydown("ArrowUp", () => move(UP))
   useKeydown("ArrowDown", () => move(DOWN))

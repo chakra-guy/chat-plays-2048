@@ -15,11 +15,7 @@ export default function App({ username }) {
   }, [dispatch, username])
 
   return (
-    <Layout
-      title="Chat Plays 2048"
-      content={<Game channel={{ name: "game", topic: "game:current" }} />}
-      sidebar={<Chat channel={{ name: "chat", topic: "chat:current" }} />}
-    />
+    <Layout title="Chat Plays 2048" content={<Game />} sidebar={<Chat />} />
   )
 }
 
