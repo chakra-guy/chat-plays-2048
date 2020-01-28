@@ -2,9 +2,9 @@ defmodule ChatPlays2048.GameServer do
   use GenServer
   alias Tty2048.Game
 
-  @turn_time 3_000
   @game_modes [:democracy, :anarchy]
   @directions [:up, :down, :right, :left]
+  @turn_time if Mix.env() == :test, do: 10, else: 3_000
 
   defmodule GameState do
     defstruct game: nil,
