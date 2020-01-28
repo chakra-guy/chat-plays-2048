@@ -1,4 +1,4 @@
-import { Presence } from "phoenix"
+import { Presence, Socket } from "phoenix"
 
 import {
   initializeGame,
@@ -9,6 +9,15 @@ import {
 } from "../Game/actions"
 import { updateMessageList, updateOnlineUsers } from "../Chat/actions"
 import { joinChannelSuccess, joinChannelError } from "./actions"
+
+const WS_URL = process.env.REACT_APP_WS_URL
+
+export function connectToSocket(username) {
+  const socket = new Socket(WS_URL, { params: { username } })
+  socket.connect()
+
+  return socket
+}
 
 export function joinChannel(socket, topic, dispatch) {
   const channel = socket.channel(topic)

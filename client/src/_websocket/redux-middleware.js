@@ -1,15 +1,12 @@
-import { Socket } from "phoenix"
-
 import {
   joinChannel,
   handleGameChannelMessages,
   handleChatChannelMessages,
+  connectToSocket,
 } from "./utils"
 import { SETUP_WEBSOCKET, JOIN_CHANNEL } from "./actions"
 import { SEND_NEW_MESSAGE } from "../Chat/actions"
 import { MAKE_MOVE, RESTART_GAME, CHANGE_GAME_MODE } from "../Game/actions"
-
-const WS_URL = process.env.REACT_APP_WS_URL
 
 export default function websocketMiddleware({ dispatch }) {
   let socket = null
@@ -20,8 +17,7 @@ export default function websocketMiddleware({ dispatch }) {
 
     switch (type) {
       case SETUP_WEBSOCKET:
-        socket = new Socket(WS_URL, { params: { username: payload } })
-        socket.connect()
+        socket = connectToSocket(payload)
         break
 
       case JOIN_CHANNEL:

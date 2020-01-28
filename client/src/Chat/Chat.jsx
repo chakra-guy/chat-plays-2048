@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
 import CHANNEL from "../_common/channelConstants"
@@ -39,11 +38,4 @@ export default function Chat() {
       />
     </Container>
   )
-}
-
-Chat.propTypes = {
-  channel: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    topic: PropTypes.string.isRequired,
-  }).isRequired,
 }

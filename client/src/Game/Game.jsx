@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 
 import DIRECTIONS from "../_common/directionsConstants"
@@ -57,11 +56,4 @@ export default function Game() {
       <Grid grid={grid} />
     </>
   )
-}
-
-Game.propTypes = {
-  channel: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    topic: PropTypes.string.isRequired,
-  }).isRequired,
 }
