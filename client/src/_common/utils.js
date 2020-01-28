@@ -16,7 +16,11 @@ export default function setupRandomUsername() {
       .replace(" ", "_")
       .toLowerCase()
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(username))
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(username))
+    } catch (error) {
+      // ignore
+    }
   }
 
   return username

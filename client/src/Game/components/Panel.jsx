@@ -42,7 +42,7 @@ export default function Panel(props) {
         <>
           <div>
             {`Remaining time to vote: `}
-            {/* TODO do a countdown instead of just displaying the end date lol */}
+            {/* TODO do a countdown instead of just displaying the end date */}
             {votingEndsAt ? moment(votingEndsAt).format() : "Not started yet"}
           </div>
           <VotesText>
