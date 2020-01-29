@@ -49,7 +49,7 @@ describe("<MessageList />", () => {
     expect(getByText("another message")).toBeInTheDocument()
   })
 
-  it("scrolls to bottom of the list message list when new message arrives", () => {
+  it("scrolls to bottom of the message list when new message arrives", () => {
     const newMessageList = [
       {
         user: "test_user_1",
