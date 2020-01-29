@@ -48,6 +48,7 @@ defmodule ChatPlays2048.GameServerTest do
     end
   end
 
+  # TODO fix random.seed so it will always return the the same "random" grid and moves
   @tag :skip
   describe "move/1" do
     test "when it's anarchy mode and user can move, then it returns with moved game" do
@@ -56,7 +57,10 @@ defmodule ChatPlays2048.GameServerTest do
     test "when it's democracy mode, then it returns with an updated game and it sends an after-message with moved game" do
     end
 
-    test "when it's democracy mode and multiple moves happened before timeout, then it should sends an after-message only once" do
+    test "when it's democracy mode and multiple moves happened before timeout, then it sends an after-message only once" do
+    end
+
+    test "when it's democracy mode and votes balance out, then it sends an after-message with not-moved game" do
     end
   end
 
