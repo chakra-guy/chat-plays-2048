@@ -21,9 +21,7 @@ describe("<Chat />", () => {
       },
     }
 
-    const dispatch = action => action
-
-    useDispatch.mockImplementation(() => dispatch)
+    useDispatch.mockImplementation(() => a => a)
     useSelector.mockImplementation(s => s(state))
   })
 

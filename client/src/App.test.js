@@ -21,8 +21,7 @@ describe("<App />", () => {
 
   // Mock redux
   beforeEach(() => {
-    const dispatch = action => action
-    useDispatch.mockImplementation(() => dispatch)
+    useDispatch.mockImplementation(() => a => a)
   })
 
   afterEach(jest.resetAllMocks)

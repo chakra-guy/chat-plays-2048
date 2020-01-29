@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from "react"
 
-export default function useKeydown(targetKey, handler) {
+export default function useKeydown(targetKey, handler, element = window) {
   const savedHandler = useRef(null)
 
   useEffect(() => {
@@ -13,7 +13,8 @@ export default function useKeydown(targetKey, handler) {
   )
 
   useEffect(() => {
-    window.addEventListener("keydown", eventListener)
-    return () => window.removeEventListener("keydown", eventListener)
+    element.addEventListener("keydown", eventListener)
+    return () => element.removeEventListener("keydown", eventListener)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventListener])
 }
