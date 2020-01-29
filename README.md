@@ -13,7 +13,7 @@ It's a web app allowing two or more players to play on the same board at the sam
 
 # Features
 
-- Multiplayer 2048
+- Multiplayer 2048 through websockets
 - Anarchy and Democracy game modes
 - Chat and online user tracking
 
