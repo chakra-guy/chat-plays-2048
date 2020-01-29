@@ -5,10 +5,6 @@ import WinLoseModal from "../../components/Modal"
 describe("<WinLoseModal />", () => {
   const restartGame = jest.fn()
 
-  beforeEach(() => {
-    window.scroll = jest.fn()
-  })
-
   it("renders without crashing", () => {
     const { container } = render(
       <WinLoseModal stage="running" restartGame={restartGame} />,

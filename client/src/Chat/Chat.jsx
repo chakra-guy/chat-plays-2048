@@ -13,6 +13,7 @@ const { CHAT } = CHANNEL
 
 export default function Chat() {
   const [inputValue, setInputValue] = useState("")
+
   const dispatch = useDispatch()
   const { onlineUsers, messages } = useSelector(state => state.chat)
 

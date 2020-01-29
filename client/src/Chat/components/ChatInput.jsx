@@ -4,7 +4,7 @@ import { ChatInputContainer, Input, SendButton } from "../styles"
 
 export default function ChatInput({ value, setValue, handleSubmit }) {
   return (
-    <ChatInputContainer>
+    <ChatInputContainer data-testid="chat-input">
       <form onSubmit={handleSubmit}>
         <Input
           value={value}

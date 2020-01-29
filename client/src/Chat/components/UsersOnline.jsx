@@ -7,7 +7,7 @@ import { UserContainer, OnlineUser, OnlineSince, Username } from "../styles"
 
 export default function UsersOnline({ users }) {
   return (
-    <UserContainer>
+    <UserContainer data-testid="users-online">
       Users Online
       {users.map(user => (
         <OnlineUser key={user.online_at}>

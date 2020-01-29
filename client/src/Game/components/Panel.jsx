@@ -24,7 +24,7 @@ export default function Panel(props) {
   } = props
 
   return (
-    <PanelContainer>
+    <PanelContainer data-testid="panel">
       <ButtonGroup>
         <Button type="button" onClick={switchGameMode}>
           Switch Game Mode

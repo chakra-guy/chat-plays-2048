@@ -8,7 +8,7 @@ import { GridContainer, Tile, TileInside } from "../styles"
 
 export default function Grid({ grid }) {
   return (
-    <GridContainer>
+    <GridContainer data-testid="grid">
       {grid.length &&
         grid.map((row, i) => (
           <div key={i}>

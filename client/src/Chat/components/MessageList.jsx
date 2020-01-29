@@ -20,7 +20,7 @@ export default function MessageList({ messages }) {
   }, [messages])
 
   return (
-    <MessageListContainer>
+    <MessageListContainer data-testid="message-list">
       {messages.map(message => (
         <Message key={message.online_at}>
           <MessageUser styles={convertToStyles(message.user)}>
