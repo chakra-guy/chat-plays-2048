@@ -30,12 +30,12 @@ It's a web app allowing two or more players to play on the same board at the sam
   - Added an extra meta data - game stage (`:running`, `:game_won`, `:game_lost`).
   - Adjusted game settings like grid size, start tile value and min tile value to fit specs.
 
-- I wrote tests for the `GameServer` and for the Channels, but admittedly wasn't I wasn't able test it properly.
+- I wrote tests for the `GameServer` and for the Channels, but admittedly I wasn't able test everything properly.
 
 ## Frontend
 
 - I chose React+Redux for the frontend, mainly because I work with it every day so I was able to move quickly.
 - To handle websockets, I wrote a [`redux-middleware`](https://redux.js.org/advanced/middleware/). It's responsible for setting up the socket, joining channels, sending and receiving messages.
 
-- For styling I used `styled-components`, a CSS-IN-JS lib. The website is not responsive. :(
-- For testing I used `jest` and `@testing-library` mainly. They allow you to test components in a way that a user would, giving you more confidence it your tests. (I've set up and used Cypres.io before for end-to-end test, but it would be an overkill for this one.)
+- For styling I used `styled-components`, a CSS-IN-JS lib. Although the website is not responsive. :(
+- For testing I used mainly `jest` and `@testing-library`. They allow me to test components in a way that a user would use it, giving me more confidence it my tests.
