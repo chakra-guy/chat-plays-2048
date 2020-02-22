@@ -85,7 +85,7 @@ defmodule ChatPlays2048.Game.Server do
   def handle_call({:change_game_mode, game_mode}, _from, %State{} = state) do
     cancel_timer(state.timer_ref)
 
-    state
+    %State{}
     |> Map.merge(%{game_mode: game_mode, game: state.game})
     |> reply()
   end
@@ -113,7 +113,7 @@ defmodule ChatPlays2048.Game.Server do
 
   defp sanitize(%State{} = state) do
     %{
-      game: state.game,
+      game: Map.from_struct(state.game),
       game_mode: state.game_mode,
       votes: state.votes,
       voting_ends_at: state.voting_ends_at

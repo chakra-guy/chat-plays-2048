@@ -5,8 +5,7 @@ defmodule ChatPlays2048.Application do
 
   def start(_type, _args) do
     children = [
-      Tty2048.Game,
-      ChatPlays2048.GameServer,
+      ChatPlays2048.Game.Server,
       ChatPlays2048Web.Endpoint,
       ChatPlays2048Web.Presence
     ]

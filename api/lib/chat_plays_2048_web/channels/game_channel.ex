@@ -1,6 +1,6 @@
 defmodule ChatPlays2048Web.GameChannel do
   use Phoenix.Channel
-  alias ChatPlays2048.GameServer
+  alias ChatPlays2048.Game
 
   @init "game:init"
   @moved "game:moved"
@@ -14,7 +14,7 @@ defmodule ChatPlays2048Web.GameChannel do
   end
 
   def handle_info(:after_join, socket) do
-    game_state = GameServer.peek()
+    game_state = Game.Server.peek()
     push(socket, @init, game_state)
     {:noreply, socket}
   end
@@ -28,7 +28,7 @@ defmodule ChatPlays2048Web.GameChannel do
     game_state =
       direction
       |> String.to_existing_atom()
-      |> GameServer.move()
+      |> Game.Server.move()
 
     case game_state.game_mode do
       :democracy -> broadcast!(socket, @voting, game_state)
@@ -42,7 +42,7 @@ defmodule ChatPlays2048Web.GameChannel do
     new_game_state =
       game_mode
       |> String.to_existing_atom()
-      |> GameServer.restart()
+      |> Game.Server.restart()
 
     broadcast!(socket, @restarted, new_game_state)
     {:noreply, socket}
@@ -52,7 +52,7 @@ defmodule ChatPlays2048Web.GameChannel do
     new_game_state =
       game_mode
       |> String.to_existing_atom()
-      |> GameServer.change_game_mode()
+      |> Game.Server.change_game_mode()
 
     broadcast!(socket, @game_mode_changed, new_game_state)
     {:noreply, socket}
