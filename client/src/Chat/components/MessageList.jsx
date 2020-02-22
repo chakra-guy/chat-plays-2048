@@ -22,11 +22,11 @@ export default function MessageList({ messages }) {
   return (
     <MessageListContainer data-testid="message-list">
       {messages.map(message => (
-        <Message key={message.online_at}>
+        <Message key={message.created_at}>
           <MessageUser styles={convertToStyles(message.user)}>
             {message.user}
           </MessageUser>
-          <MessageCreatedAt>{formatTime(message.online_at)}</MessageCreatedAt>
+          <MessageCreatedAt>{formatTime(message.created_at)}</MessageCreatedAt>
           <div>{message.body}</div>
         </Message>
       ))}
