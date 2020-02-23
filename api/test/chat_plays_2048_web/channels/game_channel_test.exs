@@ -1,6 +1,6 @@
 defmodule ChatPlays2048Web.GameChannelTest do
   use ChatPlays2048Web.ChannelCase
-  alias ChatPlays2048.GameServer
+  alias ChatPlays2048.Game
   alias ChatPlays2048Web.{UserSocket, GameChannel}
 
   setup do
@@ -18,7 +18,7 @@ defmodule ChatPlays2048Web.GameChannelTest do
   @tag :half_done
   describe "move:<direction>" do
     test "when it's anarchy mode, then it broadcasts a new anarchy game state", %{socket: socket} do
-      GameServer.restart(:anarchy)
+      Game.Server.restart(:anarchy)
       push(socket, "move:up")
       assert_broadcast("game:moved", %{game_mode: :anarchy})
     end
@@ -26,7 +26,7 @@ defmodule ChatPlays2048Web.GameChannelTest do
     test "when it's democracy mode, then it broadcasts a new democracy game state", %{
       socket: socket
     } do
-      GameServer.restart(:democracy)
+      Game.Server.restart(:democracy)
       push(socket, "move:up")
       assert_broadcast("game:voting", %{game_mode: :democracy})
     end
