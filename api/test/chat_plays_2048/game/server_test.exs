@@ -19,6 +19,7 @@ defmodule ChatPlays2048.GameServerTest do
                game: %{
                  grid: _grid,
                  score: 0,
+                 win_tile: 2048,
                  stage: :running
                },
                game_mode: :anarchy,
@@ -39,6 +40,7 @@ defmodule ChatPlays2048.GameServerTest do
                game: %{
                  grid: _grid,
                  score: 0,
+                 win_tile: 2048,
                  stage: :running
                },
                game_mode: :democracy,
