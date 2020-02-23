@@ -26,7 +26,7 @@ defmodule ChatPlays2048.Game.Server do
   end
 
   def move(direction) when direction in ~w(up down right left) do
-    direction |> String.to_existing_atom() |> move()
+    move(String.to_atom(direction))
   end
 
   def move(direction) when direction in @directions do
@@ -34,7 +34,7 @@ defmodule ChatPlays2048.Game.Server do
   end
 
   def restart(game_mode) when game_mode in ~w(democracy anarchy) do
-    game_mode |> String.to_existing_atom() |> restart()
+    restart(String.to_atom(game_mode))
   end
 
   def restart(game_mode) when game_mode in @game_modes do
@@ -42,7 +42,7 @@ defmodule ChatPlays2048.Game.Server do
   end
 
   def change_game_mode(game_mode) when game_mode in ~w(democracy anarchy) do
-    game_mode |> String.to_existing_atom() |> change_game_mode()
+    change_game_mode(String.to_atom(game_mode))
   end
 
   def change_game_mode(game_mode) when game_mode in @game_modes do
