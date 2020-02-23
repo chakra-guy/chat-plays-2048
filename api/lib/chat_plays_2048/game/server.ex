@@ -4,6 +4,7 @@ defmodule ChatPlays2048.Game.Server do
 
   @grid_size 6
   @win_tile 2048
+  @name "HARDCODED_ETS_KEY"
   @game_modes [:democracy, :anarchy]
   @directions [:up, :down, :right, :left]
   @turn_time if Mix.env() == :test, do: 10, else: 3_000
@@ -53,6 +54,7 @@ defmodule ChatPlays2048.Game.Server do
 
   def init(:ok) do
     :random.seed(@random_seed)
+    send(self(), :lazy_init)
     {:ok, %State{game: Game.new(@grid_size, @win_tile)}}
   end
 
@@ -92,6 +94,17 @@ defmodule ChatPlays2048.Game.Server do
     reply(%State{game_mode: game_mode, game: state.game})
   end
 
+  def handle_info(:lazy_init, fresh_state) do
+    new_state =
+      case :ets.lookup(:game_state, @name) do
+        [{_name, existing_state}] -> existing_state
+        [] -> fresh_state
+      end
+
+    :ets.insert(:game_state, {@name, new_state})
+    {:noreply, new_state}
+  end
+
   def handle_info({:make_next_turn, {from_pid, _}}, %State{} = state) do
     new_state =
       case with_majority?(state.votes) do
@@ -110,6 +123,7 @@ defmodule ChatPlays2048.Game.Server do
   # Private functions
 
   defp reply(state) do
+    :ets.insert(:game_state, {@name, state})
     {:reply, sanitize(state), state}
   end
 

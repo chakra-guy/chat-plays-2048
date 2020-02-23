@@ -10,6 +10,8 @@ defmodule ChatPlays2048.Application do
       ChatPlays2048Web.Presence
     ]
 
+    :ets.new(:game_state, [:public, :named_table])
+
     opts = [strategy: :one_for_one, name: ChatPlays2048.Supervisor]
     Supervisor.start_link(children, opts)
   end
