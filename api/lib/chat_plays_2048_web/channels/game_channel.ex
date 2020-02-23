@@ -25,35 +25,24 @@ defmodule ChatPlays2048Web.GameChannel do
   end
 
   def handle_in("move:" <> direction, _message, socket) do
-    game_state =
-      direction
-      |> String.to_existing_atom()
-      |> Game.Server.move()
+    game_state = Game.Server.move(direction)
 
     case game_state.game_mode do
-      :democracy -> broadcast!(socket, @voting, game_state)
       :anarchy -> broadcast!(socket, @moved, game_state)
+      :democracy -> broadcast!(socket, @voting, game_state)
     end
 
     {:noreply, socket}
   end
 
   def handle_in("restart_game", %{"game_mode" => game_mode}, socket) do
-    new_game_state =
-      game_mode
-      |> String.to_existing_atom()
-      |> Game.Server.restart()
-
+    new_game_state = Game.Server.restart(game_mode)
     broadcast!(socket, @restarted, new_game_state)
     {:noreply, socket}
   end
 
   def handle_in("change_game_mode", %{"game_mode" => game_mode}, socket) do
-    new_game_state =
-      game_mode
-      |> String.to_existing_atom()
-      |> Game.Server.change_game_mode()
-
+    new_game_state = Game.Server.change_game_mode(game_mode)
     broadcast!(socket, @game_mode_changed, new_game_state)
     {:noreply, socket}
   end

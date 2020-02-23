@@ -25,12 +25,24 @@ defmodule ChatPlays2048.Game.Server do
     GenServer.call(__MODULE__, :peek)
   end
 
+  def move(direction) when direction in ~w(up down right left) do
+    direction |> String.to_existing_atom() |> move()
+  end
+
   def move(direction) when direction in @directions do
     GenServer.call(__MODULE__, {:move, direction})
   end
 
+  def restart(game_mode) when game_mode in ~w(democracy anarchy) do
+    game_mode |> String.to_existing_atom() |> restart()
+  end
+
   def restart(game_mode) when game_mode in @game_modes do
     GenServer.call(__MODULE__, {:restart, game_mode})
+  end
+
+  def change_game_mode(game_mode) when game_mode in ~w(democracy anarchy) do
+    game_mode |> String.to_existing_atom() |> change_game_mode()
   end
 
   def change_game_mode(game_mode) when game_mode in @game_modes do
