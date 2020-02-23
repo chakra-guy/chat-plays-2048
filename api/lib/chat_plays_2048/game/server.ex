@@ -63,9 +63,7 @@ defmodule ChatPlays2048.Game.Server do
   def handle_call({:move, direction}, _from, %State{game_mode: :anarchy} = state) do
     new_game = Game.move(state.game, direction)
 
-    state
-    |> Map.put(:game, new_game)
-    |> reply()
+    reply(%{state | game: new_game})
   end
 
   def handle_call({:move, direction}, from, %State{game_mode: :democracy, timer_ref: nil} = state) do
@@ -73,33 +71,25 @@ defmodule ChatPlays2048.Game.Server do
     voting_ends_at = DateTime.utc_now() |> DateTime.add(@turn_time, :second)
     timer = Process.send_after(self(), {:make_next_turn, from}, @turn_time)
 
-    state
-    |> Map.merge(%{votes: new_votes, voting_ends_at: voting_ends_at, timer_ref: timer})
-    |> reply()
+    reply(%{state | votes: new_votes, voting_ends_at: voting_ends_at, timer_ref: timer})
   end
 
   def handle_call({:move, direction}, _from, %State{game_mode: :democracy} = state) do
     new_votes = Map.update!(state.votes, direction, &(&1 + 1))
 
-    state
-    |> Map.put(:votes, new_votes)
-    |> reply()
+    reply(%{state | votes: new_votes})
   end
 
   def handle_call({:restart, game_mode}, _from, %State{} = state) do
     cancel_timer(state.timer_ref)
 
-    %State{}
-    |> Map.merge(%{game_mode: game_mode, game: Game.new(@grid_size, @win_tile)})
-    |> reply()
+    reply(%State{game_mode: game_mode, game: Game.new(@grid_size, @win_tile)})
   end
 
   def handle_call({:change_game_mode, game_mode}, _from, %State{} = state) do
     cancel_timer(state.timer_ref)
 
-    %State{}
-    |> Map.merge(%{game_mode: game_mode, game: state.game})
-    |> reply()
+    reply(%State{game_mode: game_mode, game: state.game})
   end
 
   def handle_info({:make_next_turn, {from_pid, _}}, %State{} = state) do
@@ -107,10 +97,10 @@ defmodule ChatPlays2048.Game.Server do
       case with_majority?(state.votes) do
         {true, direction} ->
           new_game = Game.move(state.game, direction)
-          Map.merge(%State{}, %{game_mode: state.game_mode, game: new_game})
+          %State{game_mode: state.game_mode, game: new_game}
 
         _no_majority ->
-          Map.merge(%State{}, %{game_mode: state.game_mode, game: state.game})
+          %State{game_mode: state.game_mode, game: state.game}
       end
 
     send(from_pid, {:next_turn, sanitize(new_state)})

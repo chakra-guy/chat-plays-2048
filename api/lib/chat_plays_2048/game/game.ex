@@ -21,6 +21,7 @@ defmodule ChatPlays2048.Game.Game do
     %__MODULE__{
       stage: update_stage(new_grid, win_tile),
       score: score + points,
+      win_tile: win_tile,
       grid: new_grid
     }
   end
