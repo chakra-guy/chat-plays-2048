@@ -3,12 +3,13 @@ import { composeWithDevTools } from "redux-devtools-extension"
 
 import websocketMiddleware from "./_websocket/redux-middleware"
 import websocketReducer from "./_websocket/reducer"
+import { WebsocketState } from "./_websocket/_types/WebsocketState"
 import chatReducer from "./Chat/reducer"
 import gameReducer from "./Game/reducer"
 import { GameState } from "./Game/_types/GameState"
 
 export type AppState = {
-  readonly websocket: any
+  readonly websocket: WebsocketState
   readonly chat: any
   readonly game: GameState
 }

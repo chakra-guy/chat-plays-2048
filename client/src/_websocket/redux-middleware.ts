@@ -1,18 +1,21 @@
-import {
-  joinChannel,
-  handleGameChannelMessages,
-  handleChatChannelMessages,
-  connectToSocket,
-} from "./utils"
+import { AnyAction, MiddlewareAPI, Dispatch } from "redux"
+import { Socket } from "phoenix"
+
+import { joinChannel, connectToSocket } from "./utils"
 import { SETUP_WEBSOCKET, JOIN_CHANNEL } from "./actions"
 import { SEND_NEW_MESSAGE } from "../Chat/actions"
 import { MAKE_MOVE, RESTART_GAME, CHANGE_GAME_MODE } from "../Game/actions"
+import { Channels } from "./_types/Channels"
+import {
+  handleGameChannelMessages,
+  handleChatChannelMessages,
+} from "./handlers"
 
-export default function websocketMiddleware({ dispatch }) {
-  let socket = null
-  const channels = {}
+export default function websocketMiddleware({ dispatch }: MiddlewareAPI) {
+  let socket: Socket
+  const channels: Channels = {}
 
-  return next => action => {
+  return (next: Dispatch) => (action: AnyAction) => {
     const { payload, type } = action
 
     switch (type) {
@@ -24,15 +27,15 @@ export default function websocketMiddleware({ dispatch }) {
         channels[payload.name] = joinChannel(socket, payload.topic, dispatch)
 
         if (payload.name === "game") {
-          handleGameChannelMessages(channels, dispatch)
+          handleGameChannelMessages(channels.game, dispatch)
         }
         if (payload.name === "chat") {
-          handleChatChannelMessages(channels, dispatch)
+          handleChatChannelMessages(channels.chat, dispatch)
         }
         break
 
       case MAKE_MOVE:
-        channels.game.push(`move:${payload}`)
+        channels.game.push(`move:${payload}`, {})
         break
 
       case RESTART_GAME:

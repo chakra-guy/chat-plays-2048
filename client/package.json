@@ -34,6 +34,7 @@
     "@types/lodash.get": "^4.4.6",
     "@types/lodash.iserror": "^3.1.6",
     "@types/node": "^13.9.3",
+    "@types/phoenix": "^1.4.3",
     "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
     "@types/react-redux": "^7.1.7",
