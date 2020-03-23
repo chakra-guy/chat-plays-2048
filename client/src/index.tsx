@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { Provider as StoreProvider } from "react-redux"
+import { Provider } from "react-redux"
 import smoothScroll from "smoothscroll-polyfill"
 
 import { setupRandomUsername } from "./_common/utils"
@@ -14,8 +14,8 @@ const store = setupStore()
 const username = setupRandomUsername()
 
 ReactDOM.render(
-  <StoreProvider store={store}>
+  <Provider store={store}>
     <App username={username} />
-  </StoreProvider>,
+  </Provider>,
   document.getElementById("root"),
 )
