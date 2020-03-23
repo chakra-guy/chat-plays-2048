@@ -8,7 +8,9 @@ const STORAGE_KEY = "ChatPlays2048_USERNAME"
 export function setupRandomUsername(): string {
   let username: string | Error
 
-  username = attempt(JSON.parse(localStorage.getItem(STORAGE_KEY) as string))
+  username = attempt(() =>
+    JSON.parse(localStorage.getItem(STORAGE_KEY) as string),
+  )
 
   if (isError(username)) {
     username = generateName()

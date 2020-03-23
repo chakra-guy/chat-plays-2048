@@ -1,4 +1,4 @@
-const STYLE_FOR_VALUE = {
+const TILE_STYLES = {
   0: {
     size: "34px",
     color: "#766",
@@ -66,4 +66,4 @@ const STYLE_FOR_VALUE = {
   },
 }
 
-export default STYLE_FOR_VALUE
+export default TILE_STYLES
