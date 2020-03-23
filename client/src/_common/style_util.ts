@@ -1,4 +1,3 @@
-// I'm not too proud of this one 😅
 const STYLE_FOR_VALUE = {
   0: {
     size: "34px",
