@@ -44,10 +44,10 @@ export default function Game() {
 
   useChannel(GAME)
 
-  useKey("ArrowUp", () => move(UP))
-  useKey("ArrowDown", () => move(DOWN))
-  useKey("ArrowRight", () => move(RIGHT))
-  useKey("ArrowLeft", () => move(LEFT))
+  useKey("ArrowUp", () => move(UP), undefined, [canUserMakeMove])
+  useKey("ArrowDown", () => move(DOWN), undefined, [canUserMakeMove])
+  useKey("ArrowRight", () => move(RIGHT), undefined, [canUserMakeMove])
+  useKey("ArrowLeft", () => move(LEFT), undefined, [canUserMakeMove])
 
   return (
     <>
