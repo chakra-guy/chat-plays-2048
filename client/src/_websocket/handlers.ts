@@ -10,6 +10,7 @@ import {
 } from "../Game/actions"
 import { updateMessageList, updateOnlineUsers } from "../Chat/actions"
 import { GameResponse } from "../Game/_types/GameResponse"
+import { Message } from "../Chat/_types/Message"
 
 export function handleGameChannelMessages(game: Channel, dispatch: Dispatch) {
   game.on("game:init", (response: GameResponse) => {
@@ -32,7 +33,7 @@ export function handleGameChannelMessages(game: Channel, dispatch: Dispatch) {
 export function handleChatChannelMessages(chat: Channel, dispatch: Dispatch) {
   let presences = {}
 
-  chat.on("chat:new_msg", (response: any) => {
+  chat.on("chat:new_msg", (response: Message) => {
     dispatch(updateMessageList(response))
   })
   chat.on("presence_state", (response: any) => {

@@ -11,6 +11,7 @@ import WinLoseModal from "./components/Modal"
 import Grid from "./components/Grid"
 import { changeGameMode, makeMove, restartGame } from "./actions"
 import { AppState } from "../store"
+import { GameState } from "./_types/GameState"
 
 const { UP, DOWN, RIGHT, LEFT } = DIRECTIONS
 const { DEMOCRACY, ANARCHY } = GAME_MODE
@@ -25,7 +26,7 @@ export default function Game() {
     votingEndsAt,
     votes,
     userVoted,
-  } = useSelector<AppState, any>(state => state.game)
+  } = useSelector<AppState, GameState>(state => state.game)
 
   const dispatch = useDispatch()
 

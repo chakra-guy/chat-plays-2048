@@ -23,8 +23,8 @@ const initialState: GameState = {
   grid: emptyGrid,
   score: 0,
   stage: "running",
-  gameMode: undefined,
-  votingEndsAt: undefined,
+  gameMode: "",
+  votingEndsAt: "",
   votes: {},
 }
 

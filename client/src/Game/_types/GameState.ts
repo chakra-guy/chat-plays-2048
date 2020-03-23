@@ -6,7 +6,7 @@ export type GameState = {
   readonly grid: Grid
   readonly score: number
   readonly stage: string
-  readonly gameMode?: string
-  readonly votingEndsAt?: string
+  readonly gameMode: string
+  readonly votingEndsAt: string
   readonly votes: Votes
 }

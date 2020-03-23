@@ -9,6 +9,7 @@ import ChatInput from "./components/ChatInput"
 import { sendNewMessage } from "./actions"
 import { Container } from "./styles"
 import { AppState } from "../store"
+import { ChatState } from "./_types/ChatState"
 
 const { CHAT } = CHANNEL
 
@@ -16,7 +17,7 @@ export default function Chat() {
   const [inputValue, setInputValue] = useState("")
 
   const dispatch = useDispatch()
-  const { onlineUsers, messages } = useSelector<AppState, any>(
+  const { onlineUsers, messages } = useSelector<AppState, ChatState>(
     state => state.chat,
   )
 
