@@ -2,11 +2,14 @@
 // eslint can be safely disabled here
 /* eslint-disable react/no-array-index-key */
 import React from "react"
-import PropTypes from "prop-types"
 
 import { GridContainer, Tile, TileInside } from "../styles"
 
-export default function Grid({ grid }) {
+type Props = {
+  grid: number[][]
+}
+
+export default function Grid({ grid }: Props) {
   return (
     <GridContainer data-testid="grid">
       {grid.length &&
@@ -21,8 +24,4 @@ export default function Grid({ grid }) {
         ))}
     </GridContainer>
   )
-}
-
-Grid.propTypes = {
-  grid: PropTypes.arrayOf(Array).isRequired,
 }

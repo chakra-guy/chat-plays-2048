@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import moment from "moment"
 
 import GAME_MODE from "../../_common/gameModeConstants"
@@ -13,7 +12,16 @@ import {
 
 const { DEMOCRACY } = GAME_MODE
 
-export default function Panel(props) {
+type Props = {
+  score: number
+  gameMode: string
+  votingEndsAt: string
+  votes: { up?: number; down?: number; left?: number; right?: number }
+  restartGame: () => void
+  switchGameMode: () => void
+}
+
+export default function Panel(props: Props) {
   const {
     score,
     gameMode,
@@ -52,23 +60,4 @@ export default function Panel(props) {
       )}
     </PanelContainer>
   )
-}
-
-Panel.defaultProps = {
-  gameMode: "",
-  votingEndsAt: "",
-}
-
-Panel.propTypes = {
-  score: PropTypes.number.isRequired,
-  gameMode: PropTypes.string,
-  votingEndsAt: PropTypes.string,
-  votes: PropTypes.shape({
-    up: PropTypes.number,
-    down: PropTypes.number,
-    right: PropTypes.number,
-    left: PropTypes.number,
-  }).isRequired,
-  restartGame: PropTypes.func.isRequired,
-  switchGameMode: PropTypes.func.isRequired,
 }

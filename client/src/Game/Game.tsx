@@ -10,6 +10,7 @@ import Panel from "./components/Panel"
 import WinLoseModal from "./components/Modal"
 import Grid from "./components/Grid"
 import { changeGameMode, makeMove, restartGame } from "./actions"
+import { AppState } from "../store"
 
 const { UP, DOWN, RIGHT, LEFT } = DIRECTIONS
 const { DEMOCRACY, ANARCHY } = GAME_MODE
@@ -24,16 +25,20 @@ export default function Game() {
     votingEndsAt,
     votes,
     userVoted,
-  } = useSelector(state => state.game)
+  } = useSelector<AppState, any>(state => state.game)
 
   const dispatch = useDispatch()
 
   const canUserMakeMove = !userVoted && stage === "running"
 
-  const flipGameMode = mode => (mode === DEMOCRACY ? ANARCHY : DEMOCRACY)
+  const flipGameMode = (mode: string) => {
+    return mode === DEMOCRACY ? ANARCHY : DEMOCRACY
+  }
 
-  const move = dir => canUserMakeMove && dispatch(makeMove(dir))
+  const move = (dir: string) => canUserMakeMove && dispatch(makeMove(dir))
+
   const restart = () => dispatch(restartGame(gameMode))
+
   const switchGameMode = () => dispatch(changeGameMode(flipGameMode(gameMode)))
 
   useChannel(GAME)

@@ -1,10 +1,14 @@
 import React from "react"
-import PropTypes from "prop-types"
 import Modal from "react-responsive-modal"
 
 import { ModalContent, Button } from "../styles"
 
-export default function WinLoseModal({ stage, restartGame }) {
+type Props = {
+  stage: string
+  restartGame: () => void
+}
+
+export default function WinLoseModal({ stage, restartGame }: Props) {
   const isOpen = stage !== "running"
 
   return (
@@ -19,9 +23,4 @@ export default function WinLoseModal({ stage, restartGame }) {
       </Modal>
     </div>
   )
-}
-
-WinLoseModal.propTypes = {
-  stage: PropTypes.string.isRequired,
-  restartGame: PropTypes.func.isRequired,
 }

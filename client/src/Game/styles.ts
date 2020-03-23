@@ -1,5 +1,7 @@
+import get from "lodash.get"
 import styled from "styled-components"
-import STYLE_FOR_VALUE from "../_common/style_util"
+
+import TILE_STYLES from "../_common/style_util"
 
 export const PanelContainer = styled.div`
   display: flex;
@@ -16,7 +18,7 @@ export const ButtonGroup = styled.div`
   justify-content: space-between;
 `
 
-export const Button = styled.div`
+export const Button = styled.div<{ type: string }>`
   color: #776665;
   width: 180px;
   border: 2px solid #a09c9c;
@@ -66,7 +68,7 @@ export const GridContainer = styled.div`
   background-color: #baa;
 `
 
-export const Tile = styled.div`
+export const Tile = styled.div<{ value: number }>`
   display: inline-block;
   position: relative;
   height: 72px;
@@ -76,10 +78,9 @@ export const Tile = styled.div`
   font-weight: bold;
   text-align: center;
   vertical-align: middle;
-
-  font-size: ${p => STYLE_FOR_VALUE[p.value].size};
-  color: ${p => STYLE_FOR_VALUE[p.value].color};
-  background: ${p => STYLE_FOR_VALUE[p.value].bg};
+  font-size: ${p => get(TILE_STYLES, [p.value, "size"])};
+  color: ${p => get(TILE_STYLES, [p.value, "color"])};
+  background: ${p => get(TILE_STYLES, [p.value, "bg"])};
 `
 
 export const TileInside = styled.div`
