@@ -1,9 +1,14 @@
 import React from "react"
-import PropTypes from "prop-types"
 
 import { Container, Main, Header, Title, Sidebar } from "./styles"
 
-export default function Layout({ title, content, sidebar }) {
+type Props = {
+  title: string
+  content: JSX.Element
+  sidebar: JSX.Element
+}
+
+export default function Layout({ title, content, sidebar }: Props) {
   return (
     <Container>
       <Main>
@@ -15,10 +20,4 @@ export default function Layout({ title, content, sidebar }) {
       <Sidebar>{sidebar}</Sidebar>
     </Container>
   )
-}
-
-Layout.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.element.isRequired,
-  sidebar: PropTypes.element.isRequired,
 }
