@@ -4,12 +4,13 @@
 import React from "react"
 
 import { GridContainer, Tile, TileInside } from "../styles"
+import { Grid } from "../_types/Gird"
 
 type Props = {
-  grid: number[][]
+  grid: Grid
 }
 
-export default function Grid({ grid }: Props) {
+export default function GridComponent({ grid }: Props) {
   return (
     <GridContainer data-testid="grid">
       {grid.length &&

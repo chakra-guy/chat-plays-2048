@@ -1,3 +1,5 @@
+import { Reducer } from "redux"
+
 import {
   INIT_GAME,
   GAME_MOVED,
@@ -7,6 +9,8 @@ import {
   MAKE_MOVE,
 } from "./actions"
 import GAME_MODE from "../_common/gameModeConstants"
+import { GameState } from "./_types/GameState"
+import { GameActions } from "./_types/GameActions"
 
 const { DEMOCRACY } = GAME_MODE
 
@@ -14,17 +18,20 @@ const emptyGrid = Array(6)
   .fill(0)
   .map(() => Array(6).fill(0))
 
-const initialState = {
+const initialState: GameState = {
   userVoted: false,
   grid: emptyGrid,
   score: 0,
   stage: "running",
-  gameMode: null,
-  votingEndsAt: null,
+  gameMode: undefined,
+  votingEndsAt: undefined,
   votes: {},
 }
 
-export default function gameReducer(state = initialState, { type, payload }) {
+const gameReducer: Reducer<GameState, GameActions> = (
+  state = initialState,
+  { type, payload },
+) => {
   switch (type) {
     case INIT_GAME:
     case GAME_MOVED:
@@ -62,3 +69,5 @@ export default function gameReducer(state = initialState, { type, payload }) {
       return state
   }
 }
+
+export default gameReducer
