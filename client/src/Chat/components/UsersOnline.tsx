@@ -1,31 +1,24 @@
 import React from "react"
-import PropTypes from "prop-types"
-import convertToStyles from "material-color-hash"
 
 import { formatTime } from "../../_common/utils"
 import { UserContainer, OnlineUser, OnlineSince, Username } from "../styles"
+import { getColor } from "../utils"
+import { User } from "../_types/User"
 
-export default function UsersOnline({ users }) {
+type Props = {
+  users: User[]
+}
+
+export default function UsersOnline({ users }: Props) {
   return (
     <UserContainer data-testid="users-online">
       Users Online
       {users.map(user => (
         <OnlineUser key={user.online_at}>
-          <Username styles={convertToStyles(user.username)}>
-            {user.username}
-          </Username>
+          <Username color={getColor(user.username)}>{user.username}</Username>
           <OnlineSince>{formatTime(user.online_at)}</OnlineSince>
         </OnlineUser>
       ))}
     </UserContainer>
   )
-}
-
-UsersOnline.propTypes = {
-  users: PropTypes.arrayOf(
-    PropTypes.shape({
-      username: PropTypes.string,
-      online_at: PropTypes.string,
-    }),
-  ).isRequired,
 }

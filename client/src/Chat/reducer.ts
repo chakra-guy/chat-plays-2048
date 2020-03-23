@@ -1,11 +1,18 @@
-import { UPDATE_ONLINE_USERS, UPDATE_MESSAGE_LIST } from "./actions"
+import { Reducer } from "redux"
 
-const initialState = {
+import { UPDATE_ONLINE_USERS, UPDATE_MESSAGE_LIST } from "./actions"
+import { ChatState } from "./_types/ChatState"
+import { ChatActions } from "./_types/ChatActions"
+
+const initialState: ChatState = {
   onlineUsers: [],
   messages: [],
 }
 
-export default function chatReducer(state = initialState, { type, payload }) {
+const chatReducer: Reducer<ChatState, ChatActions> = (
+  state = initialState,
+  { type, payload },
+) => {
   switch (type) {
     case UPDATE_ONLINE_USERS:
       return {
@@ -23,3 +30,5 @@ export default function chatReducer(state = initialState, { type, payload }) {
       return state
   }
 }
+
+export default chatReducer

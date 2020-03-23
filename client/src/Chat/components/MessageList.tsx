@@ -1,17 +1,21 @@
 import React, { useRef, useEffect } from "react"
-import PropTypes from "prop-types"
-import convertToStyles from "material-color-hash"
 
 import { formatTime } from "../../_common/utils"
 import {
   MessageListContainer,
-  Message,
+  MessageItem,
   MessageUser,
   MessageCreatedAt,
 } from "../styles"
+import { getColor } from "../utils"
+import { Message } from "../_types/Message"
 
-export default function MessageList({ messages }) {
-  const listBottomRef = useRef(null)
+type Props = {
+  messages: Message[]
+}
+
+export default function MessageList({ messages }: Props) {
+  const listBottomRef = useRef<null | HTMLDivElement>(null)
 
   useEffect(() => {
     if (listBottomRef.current) {
@@ -22,25 +26,15 @@ export default function MessageList({ messages }) {
   return (
     <MessageListContainer data-testid="message-list">
       {messages.map(message => (
-        <Message key={message.created_at}>
-          <MessageUser styles={convertToStyles(message.user)}>
+        <MessageItem key={message.created_at}>
+          <MessageUser color={getColor(message.user)}>
             {message.user}
           </MessageUser>
           <MessageCreatedAt>{formatTime(message.created_at)}</MessageCreatedAt>
           <div>{message.body}</div>
-        </Message>
+        </MessageItem>
       ))}
       <div ref={listBottomRef} />
     </MessageListContainer>
   )
-}
-
-MessageList.propTypes = {
-  messages: PropTypes.arrayOf(
-    PropTypes.shape({
-      user: PropTypes.string,
-      body: PropTypes.string,
-      created_at: PropTypes.string,
-    }),
-  ).isRequired,
 }

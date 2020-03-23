@@ -17,14 +17,14 @@ export const MessageListContainer = styled.div`
   overflow-y: scroll;
 `
 
-export const Message = styled.div`
+export const MessageItem = styled.div`
   margin-bottom: 16px;
 `
 
-export const MessageUser = styled.div`
+export const MessageUser = styled.div<{ color: string }>`
   font-size: 14px;
   font-weight: 700;
-  color: ${p => p.styles.backgroundColor};
+  color: ${p => p.color};
 `
 
 export const MessageCreatedAt = styled.div`
@@ -57,8 +57,8 @@ export const OnlineUser = styled.div`
     left: 0;
   }
 `
-export const Username = styled.div`
-  color: ${p => p.styles.backgroundColor};
+export const Username = styled.div<{ color: string }>`
+  color: ${p => p.color};
 `
 
 export const OnlineSince = styled.div`

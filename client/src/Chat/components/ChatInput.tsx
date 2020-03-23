@@ -1,8 +1,14 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React, { FormEvent } from "react"
+
 import { ChatInputContainer, Input, SendButton } from "../styles"
 
-export default function ChatInput({ value, setValue, handleSubmit }) {
+type Props = {
+  value: string
+  setValue: (value: string) => void
+  handleSubmit: (event: FormEvent) => void
+}
+
+export default function ChatInput({ value, setValue, handleSubmit }: Props) {
   return (
     <ChatInputContainer data-testid="chat-input">
       <form onSubmit={handleSubmit}>
@@ -16,10 +22,4 @@ export default function ChatInput({ value, setValue, handleSubmit }) {
       </form>
     </ChatInputContainer>
   )
-}
-
-ChatInput.propTypes = {
-  value: PropTypes.string.isRequired,
-  setValue: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
 }

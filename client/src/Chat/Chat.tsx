@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, FormEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import CHANNEL from "../_common/channelConstants"
@@ -8,6 +8,7 @@ import MessageList from "./components/MessageList"
 import ChatInput from "./components/ChatInput"
 import { sendNewMessage } from "./actions"
 import { Container } from "./styles"
+import { AppState } from "../store"
 
 const { CHAT } = CHANNEL
 
@@ -15,11 +16,13 @@ export default function Chat() {
   const [inputValue, setInputValue] = useState("")
 
   const dispatch = useDispatch()
-  const { onlineUsers, messages } = useSelector(state => state.chat)
+  const { onlineUsers, messages } = useSelector<AppState, any>(
+    state => state.chat,
+  )
 
   useChannel(CHAT)
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     const trimmed = inputValue.trim()
     setInputValue("")
