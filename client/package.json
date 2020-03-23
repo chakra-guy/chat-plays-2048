@@ -50,6 +50,7 @@
     "react-responsive-modal": "^4.0.1",
     "react-scripts": "3.3.0",
     "react-test-renderer": "^16.12.0",
+    "react-use": "^13.27.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "sillyname": "^0.1.0",
