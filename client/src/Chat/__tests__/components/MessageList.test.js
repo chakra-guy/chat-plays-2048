@@ -28,12 +28,12 @@ describe("<MessageList />", () => {
     const messages = [
       {
         user: "test_user_1",
-        online_at: "an hour ago",
+        created_at: "an hour ago",
         body: "some message",
       },
       {
         user: "test_user_2",
-        online_at: "2 hours ago",
+        created_at: "2 hours ago",
         body: "another message",
       },
     ]
@@ -53,7 +53,7 @@ describe("<MessageList />", () => {
     const newMessageList = [
       {
         user: "test_user_1",
-        online_at: "some UTC date",
+        created_at: "some UTC date",
         body: "some message",
       },
     ]
