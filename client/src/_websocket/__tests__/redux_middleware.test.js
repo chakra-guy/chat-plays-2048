@@ -1,18 +1,18 @@
 import websocketMiddleware from "../redux-middleware"
 import { SETUP_WEBSOCKET, JOIN_CHANNEL } from "../actions"
-import {
-  connectToSocket,
-  joinChannel,
-  handleGameChannelMessages,
-  handleChatChannelMessages,
-} from "../utils"
+import { connectToSocket, joinChannel } from "../utils"
 import { MAKE_MOVE, RESTART_GAME, CHANGE_GAME_MODE } from "../../Game/actions"
 import { SEND_NEW_MESSAGE } from "../../Chat/actions"
+import {
+  handleGameChannelMessages,
+  handleChatChannelMessages,
+} from "../handlers"
 
 jest.mock("../utils")
+jest.mock("../handlers")
 
 describe("websocketMiddleware", () => {
-  const channelMock = { push: jest.fn() }
+  const channelMock = { on: jest.fn(), push: jest.fn() }
   const store = { dispatch: jest.fn() }
   const next = jest.fn()
 
@@ -43,23 +43,22 @@ describe("websocketMiddleware", () => {
     ${"game"} | ${"game:current"} | ${handleGameChannelMessages}
     ${"chat"} | ${"chat:current"} | ${handleChatChannelMessages}
   `(
-    "should join a channel when JOIN_CHANNEL action dispatched and start handling messages",
+    "when JOIN_CHANNEL action dispatched then it should join the channel and start handling messages",
     ({ name, topic, handler }) => {
+      joinChannel.mockImplementation(() => channelMock)
+
       const action = { type: JOIN_CHANNEL, payload: { name, topic } }
 
       websocketMiddleware(store)(next)(action)
 
-      expect(joinChannel).toHaveBeenCalledWith(null, topic, store.dispatch)
-      expect(handler).toHaveBeenCalledWith(
-        { [name]: undefined },
-        store.dispatch,
-      )
+      expect(joinChannel).toHaveBeenCalledWith(undefined, topic, store.dispatch)
+      expect(handler).toHaveBeenCalledWith(channelMock, store.dispatch)
     },
   )
 
   it.each`
     name      | topic             | type                | payload           | message               | expected
-    ${"game"} | ${"game:current"} | ${MAKE_MOVE}        | ${"up"}           | ${"move:up"}          | ${["move:up"]}
+    ${"game"} | ${"game:current"} | ${MAKE_MOVE}        | ${"up"}           | ${"move:up"}          | ${["move:up", {}]}
     ${"game"} | ${"game:current"} | ${RESTART_GAME}     | ${"democracy"}    | ${"restart_game"}     | ${["restart_game", { game_mode: "democracy" }]}
     ${"game"} | ${"game:current"} | ${CHANGE_GAME_MODE} | ${"democracy"}    | ${"change_game_mode"} | ${["change_game_mode", { game_mode: "democracy" }]}
     ${"chat"} | ${"chat:current"} | ${SEND_NEW_MESSAGE} | ${"some message"} | ${"chat:new_msg"}     | ${["chat:new_msg", { body: "some message" }]}
