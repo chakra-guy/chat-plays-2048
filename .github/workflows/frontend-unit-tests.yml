@@ -1,0 +1,32 @@
+name: Frontend Unit-tests
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "client/**"
+      - ".github/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install dependencies
+        working-directory: ./client
+        run: npm
+
+      - name: Run tests
+        working-directory: ./client
+        run: npm test
+        env:
+          CI: true
